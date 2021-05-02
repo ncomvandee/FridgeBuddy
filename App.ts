@@ -32,12 +32,12 @@ class App {
     private routes(): void {
 
         let router = express.Router();
-
-        router.get('/', (req, res) => {
-            res.send("This is home page");
-        })
         
         this.expressApp.use('/', router);
+        
+        this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
+        this.expressApp.use('/images', express.static(__dirname+'/img'));
+        this.expressApp.use('/', express.static(__dirname+'/pages'));
 
     }
 
