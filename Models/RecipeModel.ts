@@ -26,12 +26,12 @@ class RecipeModel {
             videoLink:String,
             avgRate:Number,
             viewers:Number
-        }, { collection: 'Recipes' });
+        }, { collection: 'recipes' });
         
     };
 
     public createModel(): void {
-        this.model = mongooseConnection.model<IRecipeModel>("Recipes", this.schema);
+        this.model = mongooseConnection.model<IRecipeModel>("recipes", this.schema);
     }
 
     public retrieveAllRecipes(response:any): any {
