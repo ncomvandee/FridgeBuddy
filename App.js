@@ -26,10 +26,11 @@ var App = /** @class */ (function () {
     };
     App.prototype.routes = function () {
         var router = express.Router();
-        router.get('/', function (req, res) {
-            res.send("This is home page");
-        });
         this.expressApp.use('/', router);
+        this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
+        //this.expressApp.use('/images', express.static(__dirname+'/img'));
+        this.expressApp.use(express.static("img"));
+        this.expressApp.use('/', express.static(__dirname + '/pages'));
     };
     return App;
 }());

@@ -1,0 +1,143 @@
+<html>
+	<head> 
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+		<!-- Optional theme -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+		<style>
+			/* Some custom styles to beautify this example */
+			.demo-content{
+				padding: 15px;
+				font-size: 18px;
+				min-height: 300px;
+				background: #dbdfe5;
+				margin-bottom: 10px;
+			}
+			.demo-content.bg-alt{
+				background: #abb1b8;
+			}
+		</style>
+	</head>
+
+	<body onload="initXHR('home', null)">
+		<div class="container">
+
+		  <!-- Static navbar -->
+		  <nav class="navbar navbar-default">
+			<div class="container-fluid">
+			  <div class="navbar-header">
+				<a class="navbar-brand" href="javascript:initXHR('home', null)">Fridge Buddy</a>
+			  </div>
+			  <div id="navbar" class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+				  <li><a href="#">Home</a></li>
+				  <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Search by Ingredient<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+					  <li><a href="#">Create</a></li>
+					  <li><a href="javascript:initXHR('lists', null)">Active</a></li>
+					  <li><a href="#">Disabled</a></li>
+					</ul>
+				  </li>
+				  <li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Search by Cuisine<span class="caret"></span></a>
+					<ul class="dropdown-menu" role="menu">
+					  <li><a href="#">Active</a></li>
+					  <li><a href="#">Pending</a></li>
+					</ul>
+				  </li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+				  <li><a href="#">Login</a></li>
+				</ul>
+			  </div><!--/.nav-collapse -->
+			</div><!--/.container-fluid -->
+		  </nav>
+		  
+		<div id="home">
+		  <!-- Main component for a primary marketing message or call to action -->
+		  <div class="jumbotron">
+			<h1>Top 10</h1>
+			<p>Keep track of all of things you need to do by creating lists and sharing items with friends.</p>
+			<p>
+			  <a class="btn btn-lg btn-primary" href="javascript:initXHR('lists', null)" role="button">View</a>
+			</p>
+		  </div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-4 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="padthai.jpg" alt="Card image cap" width="100%" height="25%">
+					<div class="card-body">
+						<h5 class="card-title">Pad Thai</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>	
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="spaghetti.jpg" alt="Card image cap" width="100%" height="25%">
+					<div class="card-body">
+						<h5 class="card-title">Spaghetti</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>	
+				</div>
+			</div>
+
+			<div class="col-lg-4 col-sm-6">
+				<div class="card">
+					<img class="card-img-top" src="bibimbap.jpg" alt="Card image cap" width="100%" height="25%">
+					<div class="card-body">
+						<h5 class="card-title">Bibimbap</h5>
+						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+						<a href="#" class="btn btn-primary">Go somewhere</a>
+					</div>	
+				</div>
+			</div>
+		</div>
+		
+		<div id="lists" style="display:none;">
+		</div>
+
+		<div id="gList" style="display:none;">
+			<div class="panel panel-default">
+			  <!-- Default panel contents -->
+			  <div class="panel-heading"> 
+				  <h3>List</h3>
+				  <div>
+					<a href="#"><span class="glyphicon glyphicon-edit"></span></a>
+					<a href="#"><span class="glyphicon glyphicon-trash"></span></a>
+					<a href="#"><span class="glyphicon glyphicon-ok"></span></a>
+				  </div>
+			  </div>
+				<!-- Table -->
+				<table class="table" style="font-size:10pt;">
+					<thead>
+						<tr>
+							<th>Items</th>
+							<th width="5%">Shared</th>
+							<th width="5%">Status</th>
+						</tr>
+					</thead>
+					<tbody id='tasks'>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		</div> <!-- /container -->
+	
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="/script.js"></script>
+	</body>
+</html>
