@@ -2,21 +2,20 @@ import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
-// Temporary code for checking connection to mongo
-var Mongoose = require("mongoose");
-var DataAccess_1 = require("./DataAccess");
-var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
-var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
+import {RecipeModel} from './Models/RecipeModel';
+
 
 class App {
     public expressApp: express.Application;
     public idGenerator: number;
+    public recipes: RecipeModel;
 
     constructor() {
         this.expressApp = express();
         this.middleware();
         this.routes();
-        // this.recipes = new RecipeModel();
+        this.recipes = new RecipeModel();
+        
         // this.reviews = new ReviewModel();
         // this.users = new UserModel();
         
@@ -32,11 +31,15 @@ class App {
     private routes(): void {
 
         let router = express.Router();
+
+        router.get('/recipes', (req, res) => {
+
+            this.recipes.retrieveAllRecipes(res);
+        })
         
         this.expressApp.use('/', router);
         
         this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
-        //this.expressApp.use('/images', express.static(__dirname+'/img'));
         this.expressApp.use(express.static("img"));
         this.expressApp.use('/', express.static(__dirname+'/pages'));
 

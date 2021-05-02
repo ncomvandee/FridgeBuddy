@@ -4,17 +4,13 @@ exports.App = void 0;
 var express = require("express");
 var logger = require("morgan");
 var bodyParser = require("body-parser");
-// Temporary code for checking connection to mongo
-var Mongoose = require("mongoose");
-var DataAccess_1 = require("./DataAccess");
-var mongooseConnection = DataAccess_1.DataAccess.mongooseConnection;
-var mongooseObj = DataAccess_1.DataAccess.mongooseInstance;
+var RecipeModel_1 = require("./Models/RecipeModel");
 var App = /** @class */ (function () {
     function App() {
         this.expressApp = express();
         this.middleware();
         this.routes();
-        // this.recipes = new RecipeModel();
+        this.recipes = new RecipeModel_1.RecipeModel();
         // this.reviews = new ReviewModel();
         // this.users = new UserModel();
     }
@@ -25,10 +21,13 @@ var App = /** @class */ (function () {
         this.expressApp.use(bodyParser.urlencoded({ extended: false }));
     };
     App.prototype.routes = function () {
+        var _this = this;
         var router = express.Router();
+        router.get('/recipes', function (req, res) {
+            _this.recipes.retrieveAllRecipes(res);
+        });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
-        //this.expressApp.use('/images', express.static(__dirname+'/img'));
         this.expressApp.use(express.static("img"));
         this.expressApp.use('/', express.static(__dirname + '/pages'));
     };
