@@ -32,6 +32,25 @@ var RecipeModel = /** @class */ (function () {
             response.json(recipeArray);
         });
     };
+
+    RecipeModel.prototype.retrieveRecipe = function (response, filter) {
+        var query = this.model.findOne({filter});
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('{recipeID: Null}');
+                }
+                else {
+                    console.log('Found!' );
+                    response.json('{recipeName:' + innerRecipe.recipeName + '}');
+                }
+            }
+        });
+    };
     return RecipeModel;
 }());
 exports.RecipeModel = RecipeModel;
