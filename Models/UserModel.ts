@@ -17,7 +17,7 @@ class UserModel {
 
     public createSchema(): void {
         this.schema = new Mongoose.Schema({
-            userID: String,
+            userId: String,
             password: String,
             email: String,
             firstName: String,
@@ -41,7 +41,7 @@ class UserModel {
     }
 
     public retrieveUser(response:any, filter:Object){
-        var query = this.model.findOne({filter});
+        var query = this.model.findOne(filter);
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -53,7 +53,7 @@ class UserModel {
                 }
                 else {
                     console.log('Found!' );
-                    response.json('{userID:' + innerUser.userID + '}');
+                    response.json(innerUser);
                 }
             }
         });

@@ -12,7 +12,7 @@ var UserModel = /** @class */ (function () {
     }
     UserModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
-            userID: String,
+            userId: String,
             password: String,
             email: String,
             firstName: String,
@@ -33,7 +33,7 @@ var UserModel = /** @class */ (function () {
         });
     };
     UserModel.prototype.retrieveUser = function (response, filter) {
-        var query = this.model.findOne({ filter: filter });
+        var query = this.model.findOne(filter);
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -45,7 +45,7 @@ var UserModel = /** @class */ (function () {
                 }
                 else {
                     console.log('Found!');
-                    response.json('{userID:' + innerUser.userID + '}');
+                    response.json(innerUser);
                 }
             }
         });
