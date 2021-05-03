@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 
 import {RecipeModel} from './Models/RecipeModel';
 import {ReviewModel} from './Models/ReviewModel';
+import {UserModel} from './Models/UserModel';
 
 
 class App {
@@ -11,6 +12,7 @@ class App {
     public idGenerator: number;
     public recipes: RecipeModel;
     public reviews: ReviewModel;
+    public users: UserModel;
 
     constructor() {
         this.expressApp = express();
@@ -18,7 +20,7 @@ class App {
         this.routes();
         this.recipes = new RecipeModel();
         this.reviews = new ReviewModel();
-        // this.users = new UserModel();
+        this.users = new UserModel();
         
     }
 
@@ -56,6 +58,19 @@ class App {
             let id = req.params.reviewId;
             this.reviews.retrieveReview(res, {reviewId: id});
         });
+
+        // Get all users
+        router.get('/users', (req, res) => {
+
+            this.users.retrieveAllUsers(res);
+        });
+
+        // Get user by id
+        router.get('/users/:userId', (req, res) => {
+
+            let id = req.params.userId;
+            this.users.retrieveUser(res, {userId: id});
+        })
 
 
         

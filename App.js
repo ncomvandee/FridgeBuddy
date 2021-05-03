@@ -6,6 +6,7 @@ var logger = require("morgan");
 var bodyParser = require("body-parser");
 var RecipeModel_1 = require("./Models/RecipeModel");
 var ReviewModel_1 = require("./Models/ReviewModel");
+var UserModel_1 = require("./Models/UserModel");
 var App = /** @class */ (function () {
     function App() {
         this.expressApp = express();
@@ -13,7 +14,7 @@ var App = /** @class */ (function () {
         this.routes();
         this.recipes = new RecipeModel_1.RecipeModel();
         this.reviews = new ReviewModel_1.ReviewModel();
-        // this.users = new UserModel();
+        this.users = new UserModel_1.UserModel();
     }
     // Configure Express middleware.
     App.prototype.middleware = function () {
@@ -41,6 +42,15 @@ var App = /** @class */ (function () {
         router.get('/reviews/:reviewId', function (req, res) {
             var id = req.params.reviewId;
             _this.reviews.retrieveReview(res, { reviewId: id });
+        });
+        // Get all users
+        router.get('/users', function (req, res) {
+            _this.users.retrieveAllUsers(res);
+        });
+        // Get user by id
+        router.get('/users/:userId', function (req, res) {
+            var id = req.params.userId;
+            _this.users.retrieveUser(res, { userId: id });
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
