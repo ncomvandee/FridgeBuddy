@@ -12,7 +12,7 @@ var RecipeModel = /** @class */ (function () {
     }
     RecipeModel.prototype.createSchema = function () {
         this.schema = new Mongoose.Schema({
-            recipeID: String,
+            recipeId: String,
             recipeName: String,
             description: Number,
             instruction: String,
@@ -26,6 +26,7 @@ var RecipeModel = /** @class */ (function () {
     ;
     RecipeModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("recipes", this.schema);
+        this.reviewModel = mongooseConnection.model("reviews", this.schema);
     };
     RecipeModel.prototype.retrieveAllRecipes = function (response) {
         var query = this.model.find({});
@@ -34,7 +35,7 @@ var RecipeModel = /** @class */ (function () {
         });
     };
     RecipeModel.prototype.retrieveRecipe = function (response, filter) {
-        var query = this.model.findOne({ filter: filter });
+        var query = this.model.findOne(filter);
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -46,7 +47,75 @@ var RecipeModel = /** @class */ (function () {
                 }
                 else {
                     console.log('Found!');
-                    response.json('{recipeName:' + innerRecipe.recipeName + '}');
+                    response.json(innerRecipe);
+                }
+            }
+        });
+    };
+    ;
+    RecipeModel.prototype.addReview = function (response, filter, ReviewId) {
+        var query = this.model.findeOne({ filter: filter });
+        var rate = 0;
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('{recipeID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    for (var i = 0; i < innerRecipe.reviewList.length; i++) {
+                        rate += innerRecipe.reviewList[i].ra;
+                    }
+                    response.json('{reviewList:' + innerRecipe.reviewList + '}');
+                }
+            }
+        });
+    };
+    ;
+    RecipeModel.prototype.removeReview = function (response, filter, ReviewId) {
+        var query = this.model.findeOne({ filter: filter });
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('{recipeID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    query.reviewList.filter(function (item) { return item.id !== ReviewId; });
+                    response.json('{reviewList:' + innerRecipe.reviewList + '}');
+                }
+            }
+        });
+    };
+    ;
+    RecipeModel.prototype.refreshRating = function (response, filter) {
+        var query = this.model.findeOne({ filter: filter });
+        var avRate = 0;
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('{recipeID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    for (var i = 0; i < innerRecipe.reviewList.length; i++) {
+                        var query = this.reviewModel.findeOne.where('reviewID', innerRecipe.reviewList[i]);
+                        avRate += query.rate;
+                    }
+                    innerRecipe.avgRate = avRate / innerRecipe.reviewList.length;
+                    response.json('{AvgRate:' + innerRecipe.avgRate + '}');
                 }
             }
         });

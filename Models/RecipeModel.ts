@@ -19,7 +19,7 @@ class RecipeModel {
 
     public createSchema(): void {
         this.schema = new Mongoose.Schema({
-            recipeID: String,
+            recipeId: String,
             recipeName: String,
             description: Number,
             instruction: String,
@@ -47,7 +47,7 @@ class RecipeModel {
     }
 
     public retrieveRecipe(response:any, filter:Object){
-        var query = this.model.findOne({filter});
+        var query = this.model.findOne(filter);
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -59,7 +59,7 @@ class RecipeModel {
                 }
                 else {
                     console.log('Found!' );
-                    response.json('{recipeName:' + innerRecipe.recipeName + '}');
+                    response.json(innerRecipe);
                 }
             }
         });

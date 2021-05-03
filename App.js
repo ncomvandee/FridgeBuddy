@@ -23,8 +23,14 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        // Get all recipes
         router.get('/recipes', function (req, res) {
             _this.recipes.retrieveAllRecipes(res);
+        });
+        // Get only one recipe by id
+        router.get('/recipes/:recipeId', function (req, res) {
+            var id = req.params.recipeId;
+            _this.recipes.retrieveRecipe(res, { recipeId: id });
         });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));

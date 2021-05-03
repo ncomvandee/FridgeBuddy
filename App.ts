@@ -32,10 +32,18 @@ class App {
 
         let router = express.Router();
 
+        // Get all recipes
         router.get('/recipes', (req, res) => {
-
             this.recipes.retrieveAllRecipes(res);
+        });
+
+        // Get only one recipe by id
+        router.get('/recipes/:recipeId', (req, res) => {
+            let id = req.params.recipeId;
+            this.recipes.retrieveRecipe(res, {recipeId: id});
         })
+
+
         
         this.expressApp.use('/', router);
         
