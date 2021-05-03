@@ -17,7 +17,7 @@ class ReviewModel {
 
     public createSchema(): void {
         this.schema = new Mongoose.Schema({
-            reviewID: String,
+            reviewId: String,
             comment: String,
             writer: String,
             date: String,
@@ -38,19 +38,19 @@ class ReviewModel {
     }
 
     public retrieveReview(response:any, filter:Object){
-        var query = this.model.findOne({filter});
-        query.exec(function (err, innerRecipe) {
+        var query = this.model.findOne(filter);
+        query.exec(function (err, innerReview) {
             if (err) {
                 console.log('error retrieving review');
             }
             else {
-                if (innerRecipe == null) {
+                if (innerReview == null) {
                     response.status(404);
                     response.json('{reviewID: Null}');
                 }
                 else {
                     console.log('Found!' );
-                    response.json('{reviewName:' + innerRecipe.recipeName + '}');
+                    response.json(innerReview);
                 }
             }
         });

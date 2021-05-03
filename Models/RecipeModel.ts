@@ -2,7 +2,9 @@
 import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import {IRecipeModel} from '../Interfaces/IRecipeModel';
-import { IReviewModel } from "../Interfaces/IReviewModel";
+//import { IReviewModel } from "../Interfaces/IReviewModel";
+
+import {ReviewModel} from './ReviewModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -15,6 +17,7 @@ class RecipeModel {
     public constructor() {
         this.createSchema();
         this.createModel();
+        
     }
 
     public createSchema(): void {
@@ -34,7 +37,7 @@ class RecipeModel {
 
     public createModel(): void {
         this.model = mongooseConnection.model<IRecipeModel>("recipes", this.schema);
-        this.reviewModel = mongooseConnection.model<IReviewModel>("reviews", this.schema);
+        //this.reviewModel = mongooseConnection.model<IReviewModel>("reviews", this.schema);
 
         
     }

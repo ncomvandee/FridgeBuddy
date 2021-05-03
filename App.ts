@@ -3,20 +3,21 @@ import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 
 import {RecipeModel} from './Models/RecipeModel';
+import {ReviewModel} from './Models/ReviewModel';
 
 
 class App {
     public expressApp: express.Application;
     public idGenerator: number;
     public recipes: RecipeModel;
+    public reviews: ReviewModel;
 
     constructor() {
         this.expressApp = express();
         this.middleware();
         this.routes();
         this.recipes = new RecipeModel();
-        
-        // this.reviews = new ReviewModel();
+        this.reviews = new ReviewModel();
         // this.users = new UserModel();
         
     }
@@ -41,7 +42,20 @@ class App {
         router.get('/recipes/:recipeId', (req, res) => {
             let id = req.params.recipeId;
             this.recipes.retrieveRecipe(res, {recipeId: id});
-        })
+        });
+
+        // Get all reviews
+        router.get('/reviews', (req, res) => {
+
+            this.reviews.retrieveAllReviews(res);
+        });
+
+        // Get a review by id
+        router.get('/reviews/:reviewId', (req, res) => {
+
+            let id = req.params.reviewId;
+            this.reviews.retrieveReview(res, {reviewId: id});
+        });
 
 
         

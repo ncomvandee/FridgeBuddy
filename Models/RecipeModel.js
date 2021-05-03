@@ -26,7 +26,7 @@ var RecipeModel = /** @class */ (function () {
     ;
     RecipeModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("recipes", this.schema);
-        this.reviewModel = mongooseConnection.model("reviews", this.schema);
+        //this.reviewModel = mongooseConnection.model<IReviewModel>("reviews", this.schema);
     };
     RecipeModel.prototype.retrieveAllRecipes = function (response) {
         var query = this.model.find({});
