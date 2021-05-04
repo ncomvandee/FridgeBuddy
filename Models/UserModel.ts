@@ -23,8 +23,8 @@ class UserModel {
             firstName: String,
             lastName: String,
             isPremium: Boolean,
-            favoritList:Array,
-            recentlyView:Array,
+            favoritList: Array,
+            recentlyView: Array,
         }, { collection: 'users' });
         
     };
@@ -52,8 +52,70 @@ class UserModel {
                     response.json('{userID: Null}');
                 }
                 else {
-                    console.log('Found!' );
+                    console.log('Found!');
                     response.json(innerUser);
+                }
+            }
+        });
+    };
+
+    public addFavoriteList(response:any, UserId: Object, RecipeId: String){
+        var query = this.model.findeOne({UserId});
+        
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    innerUser.favoritList.add(RecipeId);
+                }
+            }
+        });
+    };
+
+    public getFavoriteList(response:any, UserId: Object){
+        var query = this.model.findeOne({UserId});
+
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    response.json(innerUser.favoritList);
+                    // TASK: need to return list of recipe objects, not list of recipeID
+                }
+            }
+        });
+    };
+
+    public removeFavoriteList(response:any, UserId: Object, RecipeId: String){
+        var query = this.model.findeOne({UserId});
+        
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    query.innerUser.favoritList.filter(item => item.id !== RecipeId);
+                    response.json(innerUser.favoritList);
                 }
             }
         });
