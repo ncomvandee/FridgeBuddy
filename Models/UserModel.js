@@ -18,7 +18,7 @@ var UserModel = /** @class */ (function () {
             firstName: String,
             lastName: String,
             isPremium: Boolean,
-            favoritList: Array,
+            favoriteList: Array,
             recentlyView: Array
         }, { collection: 'users' });
     };

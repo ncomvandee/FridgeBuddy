@@ -74,22 +74,17 @@ class App {
 
         router.post('/users/', (req, res) => {
             
-            let userInfo = {userId: 12,
-                            password: "ilovesaasclass",
-                            email: "sborhan@fridgebuddy.com",
-                            firstName: "Cutie Sam",
-                            lastName: "Bohan",
-                            isPremium: true,
-                            favoriteList: [],
-                            recentlyView: []};
-
-            this.users.CreateNewUser(res, userInfo);
-
-
+            var receivedJson = req.body;
+            this.users.model.create([receivedJson], (err) => {
+                if (err) {
+                    console.log('object creation failed');
+                    res.status(404).send('Create failed');
+                } else {
+                    res.status(200).send(receivedJson);
+                }
+            });
         });
 
-
-        
         this.expressApp.use('/', router);
         
         this.expressApp.use('/app/json/', express.static(__dirname+'/app/json'));
