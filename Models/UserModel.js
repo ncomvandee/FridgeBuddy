@@ -110,16 +110,6 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
-    UserModel.prototype.CreateNewUser = function (response, userInfo) {
-        this.model.create({ userInfo: userInfo }, function (err, user) {
-            if (err) {
-                console.log(err);
-            }
-            else {
-                console.log(user);
-            }
-        });
-    };
     return UserModel;
 }());
 exports.UserModel = UserModel;

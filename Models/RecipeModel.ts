@@ -37,9 +37,6 @@ class RecipeModel {
 
     public createModel(): void {
         this.model = mongooseConnection.model<IRecipeModel>("recipes", this.schema);
-        //this.reviewModel = mongooseConnection.model<IReviewModel>("reviews", this.schema);
-
-        
     }
 
     public retrieveAllRecipes(response:any): any {
@@ -61,7 +58,7 @@ class RecipeModel {
                     response.json('{recipeID: Null}');
                 }
                 else {
-                    console.log('Found!' );
+                    console.log('Found!');
                     response.json(innerRecipe);
                 }
             }
