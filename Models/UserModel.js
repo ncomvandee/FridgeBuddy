@@ -51,6 +51,75 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
+    UserModel.prototype.addFavoriteList = function (response, UserId, RecipeId) {
+        var query = this.model.findeOne({ UserId: UserId });
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    innerUser.favoritList.add(RecipeId);
+                }
+            }
+        });
+    };
+    ;
+    UserModel.prototype.getFavoriteList = function (response, UserId) {
+        var query = this.model.findeOne({ UserId: UserId });
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    response.json(innerUser.favoritList);
+                    // TASK: need to return list of recipe objects, not list of recipeID
+                }
+            }
+        });
+    };
+    ;
+    UserModel.prototype.removeFavoriteList = function (response, UserId, RecipeId) {
+        var query = this.model.findeOne({ UserId: UserId });
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('{userID: Null}');
+                }
+                else {
+                    console.log('Found!');
+                    query.innerUser.favoritList.filter(function (item) { return item.id !== RecipeId; });
+                    response.json(innerUser.favoritList);
+                }
+            }
+        });
+    };
+    ;
+    UserModel.prototype.CreateNewUser = function (response, userInfo) {
+        this.model.create({ userInfo: userInfo }, function (err, user) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                console.log(user);
+            }
+        });
+    };
     return UserModel;
 }());
 exports.UserModel = UserModel;

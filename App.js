@@ -52,6 +52,17 @@ var App = /** @class */ (function () {
             var id = req.params.userId;
             _this.users.retrieveUser(res, { userId: id });
         });
+        router.post('/users/add', function (req, res) {
+            var userInfo = { userId: 12,
+                password: "ilovesaasclass",
+                email: "sborhan@fridgebuddy.com",
+                firstName: "Cutie Sam",
+                lastName: "Bohan",
+                isPremium: true,
+                favoriteList: [],
+                recentlyView: [] };
+            _this.users.CreateNewUser(res, userInfo);
+        });
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
         this.expressApp.use(express.static("img"));

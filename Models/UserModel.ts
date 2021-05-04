@@ -121,6 +121,17 @@ class UserModel {
         });
     };
 
+    public CreateNewUser(response: any, userInfo) {
+
+        this.model.create({userInfo}, (err, user) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(user);
+            }
+        });
+    }
+
 }
 export {UserModel};
 

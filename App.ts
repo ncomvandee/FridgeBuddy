@@ -70,7 +70,23 @@ class App {
 
             let id = req.params.userId;
             this.users.retrieveUser(res, {userId: id});
-        })
+        });
+
+        router.post('/users/', (req, res) => {
+            
+            let userInfo = {userId: 12,
+                            password: "ilovesaasclass",
+                            email: "sborhan@fridgebuddy.com",
+                            firstName: "Cutie Sam",
+                            lastName: "Bohan",
+                            isPremium: true,
+                            favoriteList: [],
+                            recentlyView: []};
+
+            this.users.CreateNewUser(res, userInfo);
+
+
+        });
 
 
         
