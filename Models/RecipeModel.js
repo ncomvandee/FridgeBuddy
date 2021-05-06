@@ -16,8 +16,8 @@ var RecipeModel = /** @class */ (function () {
             recipeName: String,
             description: Number,
             instruction: String,
-            ingredientList: Array,
-            reviewList: Array,
+            ingredientList: [String],
+            reviewList: [{ reviewId: String }],
             videoLink: String,
             avgRate: Number,
             viewers: Number
@@ -42,7 +42,7 @@ var RecipeModel = /** @class */ (function () {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -53,7 +53,7 @@ var RecipeModel = /** @class */ (function () {
     };
     ;
     RecipeModel.prototype.addReview = function (response, filter, ReviewId) {
-        var query = this.model.findeOne({ filter: filter });
+        var query = this.model.findOne({ filter: filter });
         var rate = 0;
         query.exec(function (err, innerRecipe) {
             if (err) {
@@ -62,7 +62,7 @@ var RecipeModel = /** @class */ (function () {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -76,7 +76,7 @@ var RecipeModel = /** @class */ (function () {
     };
     ;
     RecipeModel.prototype.removeReview = function (response, filter, ReviewId) {
-        var query = this.model.findeOne({ filter: filter });
+        var query = this.model.findOne({ filter: filter });
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -84,7 +84,7 @@ var RecipeModel = /** @class */ (function () {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -96,7 +96,7 @@ var RecipeModel = /** @class */ (function () {
     };
     ;
     RecipeModel.prototype.refreshRating = function (response, filter) {
-        var query = this.model.findeOne({ filter: filter });
+        var query = this.model.findOne({ filter: filter });
         var avRate = 0;
         query.exec(function (err, innerRecipe) {
             if (err) {
@@ -105,7 +105,7 @@ var RecipeModel = /** @class */ (function () {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');

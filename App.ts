@@ -48,32 +48,28 @@ class App {
 
         // Get all reviews
         router.get('/reviews', (req, res) => {
-
             this.reviews.retrieveAllReviews(res);
         });
 
         // Get a review by id
         router.get('/reviews/:reviewId', (req, res) => {
-
             let id = req.params.reviewId;
             this.reviews.retrieveReview(res, {reviewId: id});
         });
 
         // Get all users
         router.get('/users', (req, res) => {
-
             this.users.retrieveAllUsers(res);
         });
 
         // Get user by id
         router.get('/users/:userId', (req, res) => {
-
             let id = req.params.userId;
             this.users.retrieveUser(res, {userId: id});
         });
 
-        router.post('/users/', (req, res) => {
-            
+        // Create a user
+        router.post('/users/', (req, res) => { 
             var receivedJson = req.body;
             this.users.model.create([receivedJson], (err) => {
                 if (err) {

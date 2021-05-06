@@ -1,4 +1,3 @@
-
 import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import {IReviewModel} from '../Interfaces/IReviewModel';
@@ -19,7 +18,7 @@ class ReviewModel {
         this.schema = new Mongoose.Schema({
             reviewId: String,
             comment: String,
-            writer: String,
+            writer: {userId: String},
             date: String,
             rate: Number
         }, { collection: 'reviews' });
@@ -46,7 +45,7 @@ class ReviewModel {
             else {
                 if (innerReview == null) {
                     response.status(404);
-                    response.json('{reviewID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!' );

@@ -4,7 +4,7 @@ import Mongoose = require("mongoose");
 interface IReviewModel extends Mongoose.Document {
     reviewID: String;
     comment: String;
-    writer: String;
+    writer: {userId: String};
     date: String;
     rate: Number;
 }

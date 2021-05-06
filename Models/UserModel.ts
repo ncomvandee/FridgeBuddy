@@ -1,7 +1,7 @@
-
 import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import { IUsereModel } from "../Interfaces/IUserModel";
+import {IRecipeModel} from '../Interfaces/IRecipeModel';
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -23,8 +23,8 @@ class UserModel {
             firstName: String,
             lastName: String,
             isPremium: Boolean,
-            favoriteList: Array,
-            recentlyView: Array,
+            favoriteList: [{recipeId: String}],
+            recentlyView: [{recipeId: String}],
         }, { collection: 'users' });
         
     };
@@ -49,7 +49,7 @@ class UserModel {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -60,7 +60,7 @@ class UserModel {
     };
 
     public addFavoriteList(response:any, UserId: Object, RecipeId: String){
-        var query = this.model.findeOne({UserId});
+        var query = this.model.findOne({UserId});
         
         query.exec(function (err, innerUser) {
             if (err) {
@@ -69,7 +69,7 @@ class UserModel {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -80,7 +80,7 @@ class UserModel {
     };
 
     public getFavoriteList(response:any, UserId: Object){
-        var query = this.model.findeOne({UserId});
+        var query = this.model.findOne({UserId});
 
         query.exec(function (err, innerUser) {
             if (err) {
@@ -89,7 +89,7 @@ class UserModel {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -101,7 +101,7 @@ class UserModel {
     };
 
     public removeFavoriteList(response:any, UserId: Object, RecipeId: String){
-        var query = this.model.findeOne({UserId});
+        var query = this.model.findOne({UserId});
         
         query.exec(function (err, innerUser) {
             if (err) {
@@ -110,7 +110,7 @@ class UserModel {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');

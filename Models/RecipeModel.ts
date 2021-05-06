@@ -1,4 +1,3 @@
-
 import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import {IRecipeModel} from '../Interfaces/IRecipeModel';
@@ -26,8 +25,8 @@ class RecipeModel {
             recipeName: String,
             description: Number,
             instruction: String,
-            ingredientList: Array,
-            reviewList: Array,
+            ingredientList: [String],
+            reviewList: [{reviewId: String}],
             videoLink:String,
             avgRate:Number,
             viewers:Number
@@ -55,7 +54,7 @@ class RecipeModel {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -67,7 +66,7 @@ class RecipeModel {
 
     public addReview(response:any, filter:Object, ReviewId:String){
         
-        var query = this.model.findeOne({filter});
+        var query = this.model.findOne({filter});
         let rate:number = 0;
         query.exec(function (err, innerRecipe) {
             if (err) {
@@ -76,7 +75,7 @@ class RecipeModel {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!' );
@@ -93,7 +92,7 @@ class RecipeModel {
 
     public removeReview(response:any, filter:Object, ReviewId:String){
         
-        var query = this.model.findeOne({filter});
+        var query = this.model.findOne({filter});
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -101,7 +100,7 @@ class RecipeModel {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!' );
@@ -114,7 +113,7 @@ class RecipeModel {
 
     public refreshRating(response:any, filter:Object){
         
-        var query = this.model.findeOne({filter});
+        var query = this.model.findOne({filter});
         let avRate:number = 0;
         query.exec(function (err, innerRecipe) {
             if (err) {
@@ -123,7 +122,7 @@ class RecipeModel {
             else {
                 if (innerRecipe == null) {
                     response.status(404);
-                    response.json('{recipeID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!' );

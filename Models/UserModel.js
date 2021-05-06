@@ -18,8 +18,8 @@ var UserModel = /** @class */ (function () {
             firstName: String,
             lastName: String,
             isPremium: Boolean,
-            favoriteList: Array,
-            recentlyView: Array
+            favoriteList: [{ recipeId: String }],
+            recentlyView: [{ recipeId: String }]
         }, { collection: 'users' });
     };
     ;
@@ -41,7 +41,7 @@ var UserModel = /** @class */ (function () {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -52,7 +52,7 @@ var UserModel = /** @class */ (function () {
     };
     ;
     UserModel.prototype.addFavoriteList = function (response, UserId, RecipeId) {
-        var query = this.model.findeOne({ UserId: UserId });
+        var query = this.model.findOne({ UserId: UserId });
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -60,7 +60,7 @@ var UserModel = /** @class */ (function () {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -71,7 +71,7 @@ var UserModel = /** @class */ (function () {
     };
     ;
     UserModel.prototype.getFavoriteList = function (response, UserId) {
-        var query = this.model.findeOne({ UserId: UserId });
+        var query = this.model.findOne({ UserId: UserId });
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -79,7 +79,7 @@ var UserModel = /** @class */ (function () {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');
@@ -91,7 +91,7 @@ var UserModel = /** @class */ (function () {
     };
     ;
     UserModel.prototype.removeFavoriteList = function (response, UserId, RecipeId) {
-        var query = this.model.findeOne({ UserId: UserId });
+        var query = this.model.findOne({ UserId: UserId });
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -99,7 +99,7 @@ var UserModel = /** @class */ (function () {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('{userID: Null}');
+                    response.json('Bad Request');
                 }
                 else {
                     console.log('Found!');

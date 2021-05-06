@@ -52,6 +52,7 @@ var App = /** @class */ (function () {
             var id = req.params.userId;
             _this.users.retrieveUser(res, { userId: id });
         });
+        // Create a user
         router.post('/users/', function (req, res) {
             var receivedJson = req.body;
             _this.users.model.create([receivedJson], function (err) {

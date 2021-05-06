@@ -8,7 +8,7 @@ interface IUsereModel extends Mongoose.Document {
     firstName: String;
     lastName: String;
     isPremium: boolean;
-    favoritList:Array<String>;
-    recentlyView:Array<String>;
+    favoritList:[{recipeId: String}];
+    recentlyView:[{recipeId: String}];
 }
 export {IUsereModel};
