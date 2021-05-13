@@ -54,31 +54,26 @@ var UserModel = /** @class */ (function () {
     UserModel.prototype.addToFavoriteList = function (response, UserId, RecipeId) {
         var isExisted = false;
         var query = this.model.findOne({ userId: UserId });
-        //query.where('userId').It(UserId);
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
             }
             else {
-                if (innerUser == null) {
+                if (innerUser == null || RecipeId == '') {
                     response.status(404);
-                    response.json('Bad Request addToFavoriteList!');
+                    response.json('Bad Request!');
                 }
                 else {
-                    // for(var favorite in innerUser.favoriteList)
-                    // {
-                    //    if(favorite == RecipeId)
-                    //    {
-                    //      isExisted = true;
-                    //      break;
-                    //    }
-                    // }
-                    if (isExisted == false) {
+                    console.log('favoriteList is:' + innerUser.favoriteList);
+                    for (var i = 0; i < innerUser.favoriteList.length; i++) {
+                        if (innerUser.favoriteList[i] == RecipeId) {
+                            isExisted = true;
+                            break;
+                        }
+                    }
+                    if (isExisted === false) {
                         console.log('Added to favorite List!');
-                        console.log(innerUser.favoriteList);
                         innerUser.favoriteList.push(RecipeId);
-                        console.log('RecpieId is:' + RecipeId);
-                        console.log(innerUser);
                         innerUser.save(function (err) {
                             if (err) {
                                 response.send(err);
@@ -87,8 +82,7 @@ var UserModel = /** @class */ (function () {
                         });
                     }
                     else {
-                        response.json(innerUser);
-                        response.json('Already Existed in the Favorite List!');
+                        response.json('Duplicate!');
                     }
                 }
             }
