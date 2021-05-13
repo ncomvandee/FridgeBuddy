@@ -18,8 +18,8 @@ var UserModel = /** @class */ (function () {
             firstName: String,
             lastName: String,
             isPremium: Boolean,
-            favoriteList: [{ recipeId: String }],
-            recentlyView: [{ recipeId: String }]
+            favoriteList: [],
+            recentlyView: []
         }, { collection: 'users' });
     };
     ;
@@ -51,8 +51,10 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
-    UserModel.prototype.addFavoriteList = function (response, UserId, RecipeId) {
-        var query = this.model.findOne({ UserId: UserId });
+    UserModel.prototype.addToFavoriteList = function (response, UserId, RecipeId) {
+        var isExisted = false;
+        var query = this.model.findOne({ userId: UserId });
+        //query.where('userId').It(UserId);
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -60,11 +62,32 @@ var UserModel = /** @class */ (function () {
             else {
                 if (innerUser == null) {
                     response.status(404);
-                    response.json('Bad Request');
+                    response.json('Bad Request addToFavoriteList!');
                 }
                 else {
-                    console.log('Found!');
-                    innerUser.favoritList.add(RecipeId);
+                    for (var favorite in innerUser.favoriteList) {
+                        if (favorite == RecipeId) {
+                            isExisted = true;
+                            break;
+                        }
+                    }
+                    if (isExisted == false) {
+                        console.log('Added to favorite List!');
+                        console.log(innerUser.favoriteList);
+                        innerUser.favoriteList.push(RecipeId);
+                        console.log('RecpieId is:' + RecipeId);
+                        console.log(innerUser);
+                        innerUser.save(function (err) {
+                            if (err) {
+                                response.send(err);
+                            }
+                            response.json(RecipeId + ' is added to favorite List!');
+                        });
+                    }
+                    else {
+                        response.json(innerUser);
+                        response.json('Already Existed in the Favorite List!');
+                    }
                 }
             }
         });
