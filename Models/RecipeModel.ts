@@ -67,18 +67,32 @@ class RecipeModel {
     };
 
     //Get recipe by ingredients
-    public retrieveRecibeByIngredients(response: any, filter) {
+    public retrieveRecibeByIngredients(response: any, filter: any) {
 
         let fillterArr = [];
+        let size;
+        let checkMock = "String";
 
-        for (let i = 0; i < filter.length; i++) {
-            fillterArr.push(new RegExp(filter[i], 'i'));
+        if (typeof filter === typeof checkMock) {
+            fillterArr.push(new RegExp(filter, 'i'));
         }
+        else {
+            for (let i = 0; i < filter.length; i++) {
+                fillterArr.push(new RegExp(filter[i], 'i'));
+            }
+        }
+
+        console.log(fillterArr);
+        
+
+        size = fillterArr.length;
+
+        console.log(size);
         
         var query = this.model.find({ingredientList: {$all: fillterArr }});
         query.exec((err, foundRecipe) => {
             if (err) {
-                console.log('No recipe found');
+                console.log(err);
             } else {
                 if (foundRecipe == null) {
                     response.status(404);
