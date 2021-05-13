@@ -65,12 +65,14 @@ var UserModel = /** @class */ (function () {
                     response.json('Bad Request addToFavoriteList!');
                 }
                 else {
-                    for (var favorite in innerUser.favoriteList) {
-                        if (favorite == RecipeId) {
-                            isExisted = true;
-                            break;
-                        }
-                    }
+                    // for(var favorite in innerUser.favoriteList)
+                    // {
+                    //    if(favorite == RecipeId)
+                    //    {
+                    //      isExisted = true;
+                    //      break;
+                    //    }
+                    // }
                     if (isExisted == false) {
                         console.log('Added to favorite List!');
                         console.log(innerUser.favoriteList);

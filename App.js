@@ -79,7 +79,7 @@ var App = /** @class */ (function () {
         router.put('/recipe/addTo/:userId/:recipeId', function (req, res) {
             console.log(req.body);
             var userId = req.params.userId;
-            var recipeId = req.params.userId;
+            var recipeId = req.params.recipeId;
             _this.users.addToFavoriteList(res, userId, recipeId);
         });
         this.expressApp.use('/', router);

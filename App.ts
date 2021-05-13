@@ -96,7 +96,7 @@ class App {
           router.put('/recipe/addTo/:userId/:recipeId', (req, res) => { 
             console.log(req.body);
             var userId = req.params.userId;
-            var recipeId = req.params.userId;
+            var recipeId = req.params.recipeId;
             this.users.addToFavoriteList(res, userId, recipeId );
 
         });
