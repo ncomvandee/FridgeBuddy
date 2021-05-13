@@ -51,6 +51,12 @@ class App {
             this.recipes.retrieveRecipe(res, {recipeId: id});
         });
 
+        // Get recipe by ingredients
+        router.get('/recipe', (req, res) => {
+            let ingredientsArr = req.query.array;
+            this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
+        })
+
         // Get all reviews
         router.get('/reviews', (req, res) => {
             this.reviews.retrieveAllReviews(res);

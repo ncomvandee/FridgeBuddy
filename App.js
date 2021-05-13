@@ -39,6 +39,11 @@ var App = /** @class */ (function () {
             var id = req.params.recipeId;
             _this.recipes.retrieveRecipe(res, { recipeId: id });
         });
+        // Get recipe by ingredients
+        router.get('/recipe', function (req, res) {
+            var ingredientsArr = req.query.array;
+            _this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
+        });
         // Get all reviews
         router.get('/reviews', function (req, res) {
             _this.reviews.retrieveAllReviews(res);

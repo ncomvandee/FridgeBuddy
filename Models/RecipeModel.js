@@ -27,12 +27,14 @@ var RecipeModel = /** @class */ (function () {
     RecipeModel.prototype.createModel = function () {
         this.model = mongooseConnection.model("recipes", this.schema);
     };
+    // Get all recipes
     RecipeModel.prototype.retrieveAllRecipes = function (response) {
         var query = this.model.find({});
         query.exec(function (err, recipeArray) {
             response.json(recipeArray);
         });
     };
+    // Get recipe by id
     RecipeModel.prototype.retrieveRecipe = function (response, filter) {
         var query = this.model.findOne(filter);
         query.exec(function (err, innerRecipe) {
@@ -52,6 +54,24 @@ var RecipeModel = /** @class */ (function () {
         });
     };
     ;
+    //Get recipe by ingredients
+    RecipeModel.prototype.retrieveRecibeByIngredients = function (response, filter) {
+        var query = this.model.find({ ingredientList: { $all: filter } });
+        query.exec(function (err, foundRecipe) {
+            if (err) {
+                console.log('No recipe found');
+            }
+            else {
+                if (foundRecipe == null) {
+                    response.status(404);
+                    response.json('Bad request');
+                }
+                else {
+                    response.json(foundRecipe);
+                }
+            }
+        });
+    };
     RecipeModel.prototype.addReview = function (response, filter, ReviewId) {
         var query = this.model.findOne({ filter: filter });
         var rate = 0;

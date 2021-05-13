@@ -38,6 +38,7 @@ class RecipeModel {
         this.model = mongooseConnection.model<IRecipeModel>("recipes", this.schema);
     }
 
+    // Get all recipes
     public retrieveAllRecipes(response:any): any {
         var query = this.model.find({});
         query.exec( (err, recipeArray) => {
@@ -45,6 +46,7 @@ class RecipeModel {
         });
     }
 
+    // Get recipe by id
     public retrieveRecipe(response:any, filter:Object){
         var query = this.model.findOne(filter);
         query.exec(function (err, innerRecipe) {
@@ -63,6 +65,24 @@ class RecipeModel {
             }
         });
     };
+
+    //Get recipe by ingredients
+    public retrieveRecibeByIngredients(response: any, filter) {
+        var query = this.model.find({ingredientList: {$all: filter}});
+        query.exec((err, foundRecipe) => {
+            if (err) {
+                console.log('No recipe found');
+            } else {
+                if (foundRecipe == null) {
+                    response.status(404);
+                    response.json('Bad request');
+                }
+                else {
+                    response.json(foundRecipe);
+                }
+            }
+        })
+    }
 
     public addReview(response:any, filter:Object, ReviewId:String){
         
