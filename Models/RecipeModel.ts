@@ -68,7 +68,14 @@ class RecipeModel {
 
     //Get recipe by ingredients
     public retrieveRecibeByIngredients(response: any, filter) {
-        var query = this.model.find({ingredientList: {$all: filter}});
+
+        let fillterArr = [];
+
+        for (let i = 0; i < filter.length; i++) {
+            fillterArr.push(new RegExp(filter[i], 'i'));
+        }
+        
+        var query = this.model.find({ingredientList: {$all: fillterArr }});
         query.exec((err, foundRecipe) => {
             if (err) {
                 console.log('No recipe found');
