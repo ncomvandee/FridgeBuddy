@@ -57,6 +57,12 @@ class App {
             this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         })
 
+        // Create new recipe
+        router.post('/recipes/', (req, res) => {
+            let newRecipe = req.body;
+            this.recipes.addNewRecipe(res, newRecipe);
+        })
+
         // Get all reviews
         router.get('/reviews', (req, res) => {
             this.reviews.retrieveAllReviews(res);

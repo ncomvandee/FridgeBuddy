@@ -23,10 +23,10 @@ class RecipeModel {
         this.schema = new Mongoose.Schema({
             recipeId: String,
             recipeName: String,
-            description: Number,
+            description: String,
             instruction: String,
-            ingredientList: [String],
-            reviewList: [{reviewId: String}],
+            ingredientList: [],
+            reviewList: [],
             videoLink:String,
             avgRate:Number,
             viewers:Number
@@ -115,6 +115,19 @@ class RecipeModel {
             }
         })
     }
+
+    // Add new recipe in db
+    public addNewRecipe(response: any, newRecipe: Object) {
+        this.model.create([newRecipe], (err) => {
+            if (err) {
+                console.log(err);
+                response.status(404).send('Failed to add new recipe');
+            }
+            else {
+                response.status(200).send(newRecipe);
+            }
+        })
+    } 
 
     public addReview(response:any, filter:Object, ReviewId:String){
         

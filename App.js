@@ -80,6 +80,11 @@ var App = /** @class */ (function () {
             var ingredientsArr = req.query.array;
             _this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         });
+        // Create new recipe
+        router.post('/recipes/', function (req, res) {
+            var newRecipe = req.body;
+            _this.recipes.addNewRecipe(res, newRecipe);
+        });
         // Get all reviews
         router.get('/reviews', function (req, res) {
             _this.reviews.retrieveAllReviews(res);

@@ -14,10 +14,10 @@ var RecipeModel = /** @class */ (function () {
         this.schema = new Mongoose.Schema({
             recipeId: String,
             recipeName: String,
-            description: Number,
+            description: String,
             instruction: String,
-            ingredientList: [String],
-            reviewList: [{ reviewId: String }],
+            ingredientList: [],
+            reviewList: [],
             videoLink: String,
             avgRate: Number,
             viewers: Number
@@ -93,6 +93,18 @@ var RecipeModel = /** @class */ (function () {
                     }
                     response.json(resultArr);
                 }
+            }
+        });
+    };
+    // Add new recipe in db
+    RecipeModel.prototype.addNewRecipe = function (response, newRecipe) {
+        this.model.create([newRecipe], function (err) {
+            if (err) {
+                console.log(err);
+                response.status(404).send('Failed to add new recipe');
+            }
+            else {
+                response.status(200).send(newRecipe);
             }
         });
     };
