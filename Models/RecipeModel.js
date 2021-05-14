@@ -68,9 +68,9 @@ var RecipeModel = /** @class */ (function () {
             }
         }
         console.log(fillterArr);
-        size = fillterArr.length;
+        size = fillterArr.length + 3;
         console.log(size);
-        var query = this.model.find({ ingredientList: { $all: fillterArr } });
+        var query = this.model.find({ ingredientList: { $in: fillterArr } });
         query.exec(function (err, foundRecipe) {
             if (err) {
                 console.log(err);
@@ -81,7 +81,14 @@ var RecipeModel = /** @class */ (function () {
                     response.json('Bad request');
                 }
                 else {
-                    response.json(foundRecipe);
+                    var resultArr = [];
+                    for (var i = 0; i < foundRecipe.length; i++) {
+                        console.log(foundRecipe[i].ingredientList.length);
+                        if (foundRecipe[i].ingredientList.length <= size) {
+                            resultArr.push(foundRecipe[i]);
+                        }
+                    }
+                    response.json(resultArr);
                 }
             }
         });

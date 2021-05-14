@@ -69,12 +69,14 @@ class RecipeModel {
     //Get recipe by ingredients
     public retrieveRecibeByIngredients(response: any, filter: any) {
 
+        //new array to put case insensitive argument
         let fillterArr = [];
         let size;
         let checkMock = "String";
 
+        // If the filter contain only one argument. it treats as string and cannot use loop
         if (typeof filter === typeof checkMock) {
-            fillterArr.push(new RegExp(filter, 'i'));
+            fillterArr.push(new RegExp(filter, 'i')); //RegEx for case insensitive
         }
         else {
             for (let i = 0; i < filter.length; i++) {
@@ -82,14 +84,10 @@ class RecipeModel {
             }
         }
 
-        console.log(fillterArr);
+        // Size of the ingredient array
+        size = fillterArr.length + 3;
         
-
-        size = fillterArr.length;
-
-        console.log(size);
-        
-        var query = this.model.find({ingredientList: {$all: fillterArr }});
+        var query = this.model.find({ingredientList: {$in: fillterArr }})
         query.exec((err, foundRecipe) => {
             if (err) {
                 console.log(err);
@@ -99,7 +97,20 @@ class RecipeModel {
                     response.json('Bad request');
                 }
                 else {
-                    response.json(foundRecipe);
+                    
+                    // New array for result
+                    let resultArr = [];
+
+                    for (let i = 0; i < foundRecipe.length; i++) {
+                        
+                        // If ingredient list is too much longer than the ingredient arguments
+                        // that's mean, most of the ingredients are missing
+                        if (foundRecipe[i].ingredientList.length <= size) {
+                            resultArr.push(foundRecipe[i]);
+                        }
+                    }
+
+                    response.json(resultArr);
                 }
             }
         })
