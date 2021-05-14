@@ -111,6 +111,31 @@ class App {
                 var recipeId = req.params.recipeId;           
                 this.users.addToFavoriteList(res, userId, recipeId);
             } else {
+                res.status(404);
+                res.json('Bad Request!');
+            }
+        });
+
+         // Update user's favorit list by removing a Recipe
+         router.put('/recipe/removeFrom/:userId/:recipeId', async (req, res) => { 
+            let id = req.params.recipeId;
+            let exist = false;
+            
+            // Check if we have a specific recipe
+            await this.recipes.model.find({recipeId: id}, function(err, result) {
+                if (err) throw err;
+                if(result.length != 0) {
+                    exist = true;
+                }
+            });
+            
+            // If exist, add to the user's favorite list
+            if(exist){
+                var userId = req.params.userId;
+                var recipeId = req.params.recipeId;           
+                this.users.removeFromFavoriteList(res, userId, recipeId);
+            } else {
+                res.status(404);
                 res.json('Bad Request!');
             }
         });

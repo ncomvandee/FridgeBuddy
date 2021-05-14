@@ -67,7 +67,7 @@ class UserModel {
                 console.log('error retrieving user');
             }
             else {
-                if (innerUser == null || RecipeId == '') {
+                if (innerUser == null) {
                     response.status(404);
                     response.json('Bad Request!');
                 }
@@ -102,6 +102,51 @@ class UserModel {
             }
         });
     };
+
+    
+    public removeFromFavoriteList(response:any, UserId: String, RecipeId: String){
+        var isExisted : boolean = false;
+        var query = this.model.findOne({userId: UserId});
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('Bad Request!');
+                }
+                else {
+                    console.log('favoriteList is:'+ innerUser.favoriteList);
+                    for(let i=0; i< innerUser.favoriteList.length; i++)
+                    {
+                       if(innerUser.favoriteList[i] == RecipeId)
+                       {
+                         isExisted = true;
+                         console.log('removing from favorite List!');
+                         innerUser.favoriteList.splice(i, RecipeId);
+                         innerUser.save(function(err){
+                            if(err)
+                            {
+                               response.send(err);
+                            }                  
+                            response.json(RecipeId + ' is removed from favorite List!');
+                           });
+                           break;
+                        }
+                    }  
+                    
+                    if( isExisted === false)
+                    {
+                        console.log('Not found in User favorite List!');
+                        response.status(404);
+                        response.json('Bad Request!');
+                    }
+                }
+            }
+        });
+    };
+
 
     public getFavoriteList(response:any, UserId: Object){
         var query = this.model.findOne({UserId});

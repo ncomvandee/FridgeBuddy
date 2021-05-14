@@ -137,6 +137,40 @@ var App = /** @class */ (function () {
                             this.users.addToFavoriteList(res, userId, recipeId);
                         }
                         else {
+                            res.status(404);
+                            res.json('Bad Request!');
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        // Update user's favorit list by removing a Recipe
+        router.put('/recipe/removeFrom/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+            var id, exist, userId, recipeId;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        id = req.params.recipeId;
+                        exist = false;
+                        // Check if we have a specific recipe
+                        return [4 /*yield*/, this.recipes.model.find({ recipeId: id }, function (err, result) {
+                                if (err)
+                                    throw err;
+                                if (result.length != 0) {
+                                    exist = true;
+                                }
+                            })];
+                    case 1:
+                        // Check if we have a specific recipe
+                        _a.sent();
+                        // If exist, add to the user's favorite list
+                        if (exist) {
+                            userId = req.params.userId;
+                            recipeId = req.params.recipeId;
+                            this.users.removeFromFavoriteList(res, userId, recipeId);
+                        }
+                        else {
+                            res.status(404);
                             res.json('Bad Request!');
                         }
                         return [2 /*return*/];
