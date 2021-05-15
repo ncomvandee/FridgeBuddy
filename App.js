@@ -66,6 +66,7 @@ var App = /** @class */ (function () {
     App.prototype.routes = function () {
         var _this = this;
         var router = express.Router();
+        /**********   RECIPE OPERATION  ************************************************************/
         // Get all recipes
         router.get('/recipes', function (req, res) {
             _this.recipes.retrieveAllRecipes(res);
@@ -85,6 +86,12 @@ var App = /** @class */ (function () {
             var newRecipe = req.body;
             _this.recipes.addNewRecipe(res, newRecipe);
         });
+        // Delete recipe
+        router["delete"]('/recipes/:recipeId', function (req, res) {
+            var id = req.params.recipeId;
+            _this.recipes.deleteRecipe(res, { recipeId: id });
+        });
+        /****************************************************************************************/
         // Get all reviews
         router.get('/reviews', function (req, res) {
             _this.reviews.retrieveAllReviews(res);

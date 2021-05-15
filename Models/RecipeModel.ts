@@ -129,6 +129,19 @@ class RecipeModel {
         })
     } 
 
+    // Delete recipe
+    public deleteRecipe (response: any, recipeId: Object) {
+        this.model.findOneAndDelete(recipeId, (err) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                response.status(200).send('Recipe deleted');
+            }
+        })
+        
+    }
+
     public addReview(response:any, filter:Object, ReviewId:String){
         
         var query = this.model.findOne({filter});

@@ -40,6 +40,9 @@ class App {
 
         let router = express.Router();
 
+
+        /**********   RECIPE OPERATION  ************************************************************/
+
         // Get all recipes
         router.get('/recipes', (req, res) => {
             this.recipes.retrieveAllRecipes(res);
@@ -62,6 +65,15 @@ class App {
             let newRecipe = req.body;
             this.recipes.addNewRecipe(res, newRecipe);
         })
+
+        // Delete recipe
+        router.delete('/recipes/:recipeId', (req, res) => {
+            let id = req.params.recipeId;
+
+            this.recipes.deleteRecipe(res, {recipeId: id});
+        })
+
+        /****************************************************************************************/
 
         // Get all reviews
         router.get('/reviews', (req, res) => {

@@ -108,6 +108,17 @@ var RecipeModel = /** @class */ (function () {
             }
         });
     };
+    // Delete recipe
+    RecipeModel.prototype.deleteRecipe = function (response, recipeId) {
+        this.model.findOneAndDelete(recipeId, function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                response.status(200).send('Recipe deleted');
+            }
+        });
+    };
     RecipeModel.prototype.addReview = function (response, filter, ReviewId) {
         var query = this.model.findOne({ filter: filter });
         var rate = 0;
