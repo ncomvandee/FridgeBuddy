@@ -15,7 +15,7 @@ var RecipeModel = /** @class */ (function () {
             recipeId: String,
             recipeName: String,
             description: String,
-            instruction: String,
+            instruction: [],
             ingredientList: [],
             reviewList: [],
             videoLink: String,
@@ -119,9 +119,9 @@ var RecipeModel = /** @class */ (function () {
             }
         });
     };
-    RecipeModel.prototype.addReview = function (response, filter, ReviewId) {
-        var query = this.model.findOne({ filter: filter });
-        var rate = 0;
+    RecipeModel.prototype.addReview = function (response, ReviewId, recipe) {
+        var isExisted = false;
+        var query = this.model.findOne(recipe);
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -132,11 +132,22 @@ var RecipeModel = /** @class */ (function () {
                     response.json('Bad Request');
                 }
                 else {
-                    console.log('Found!');
                     for (var i = 0; i < innerRecipe.reviewList.length; i++) {
-                        rate += innerRecipe.reviewList[i].ra;
+                        if (innerRecipe.reviewList[i] == ReviewId) {
+                            isExisted = true;
+                            break;
+                        }
                     }
-                    response.json('{reviewList:' + innerRecipe.reviewList + '}');
+                    if (isExisted === false) {
+                        console.log('Found!');
+                        innerRecipe.reviewList.push(ReviewId);
+                        console.log(innerRecipe.reviewList);
+                        innerRecipe.save(function (err) {
+                            if (err) {
+                                response.send(err);
+                            }
+                        });
+                    }
                 }
             }
         });

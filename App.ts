@@ -87,10 +87,26 @@ class App {
         });
 
         router.put('/reviews/:reviewId', (req, res) => {
-            let id = req.params.reviewID;
+            let id = req.params.reviewId;
             var receivedJson = req.body;
             this.reviews.updateReview(res, receivedJson, id);
         });
+
+        router.post('/reviews/:recipeId/:reviewId', (req, res) => {
+            var recipeId = req.params.recipeId;
+            var receivedJson = req.body;
+            var reviewId = req.params.reviewId
+            this.reviews.model.create([receivedJson], async (err) => {
+                if (err) {
+                    console.log('object creation failed');
+                    res.status(404).send('Create failed');
+                } else {
+                    console.log('Review #' + reviewId + ' added');
+                    this.recipes.addReview(res, reviewId, {recipeId: recipeId});
+                    res.status(200).send('Review added');
+                }
+            });
+        })
 
         // Get all users
         router.get('/users', (req, res) => {

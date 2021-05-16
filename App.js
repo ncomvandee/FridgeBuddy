@@ -102,9 +102,28 @@ var App = /** @class */ (function () {
             _this.reviews.retrieveReview(res, { reviewId: id });
         });
         router.put('/reviews/:reviewId', function (req, res) {
-            var id = req.params.reviewID;
+            var id = req.params.reviewId;
             var receivedJson = req.body;
             _this.reviews.updateReview(res, receivedJson, id);
+        });
+        router.post('/reviews/:recipeId/:reviewId', function (req, res) {
+            var recipeId = req.params.recipeId;
+            var receivedJson = req.body;
+            var reviewId = req.params.reviewId;
+            _this.reviews.model.create([receivedJson], function (err) { return __awaiter(_this, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (err) {
+                        console.log('object creation failed');
+                        res.status(404).send('Create failed');
+                    }
+                    else {
+                        console.log('Review #' + reviewId + ' added');
+                        this.recipes.addReview(res, reviewId, { recipeId: recipeId });
+                        res.status(200).send('Review added');
+                    }
+                    return [2 /*return*/];
+                });
+            }); });
         });
         // Get all users
         router.get('/users', function (req, res) {

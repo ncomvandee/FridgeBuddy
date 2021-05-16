@@ -5,9 +5,9 @@ interface IRecipeModel extends Mongoose.Document {
     recipeID: String;
     recipeName: String;
     description: Number;
-    instruction: String;
-    ingredientList: String[];
-    reviewList: String[];
+    instruction: string[];
+    ingredientList: string[];
+    reviewList: string[];
     videoLink:String;
     avgRate:Number;
     viewers:Number;

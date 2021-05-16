@@ -24,7 +24,7 @@ class RecipeModel {
             recipeId: String,
             recipeName: String,
             description: String,
-            instruction: String,
+            instruction: [],
             ingredientList: [],
             reviewList: [],
             videoLink:String,
@@ -142,10 +142,9 @@ class RecipeModel {
         
     }
 
-    public addReview(response:any, filter:Object, ReviewId:String){
-        
-        var query = this.model.findOne({filter});
-        let rate:number = 0;
+    public addReview(response:any, ReviewId: String, recipe:Object){
+        var isExisted : boolean = false;
+        var query = this.model.findOne(recipe);
         query.exec(function (err, innerRecipe) {
             if (err) {
                 console.log('error retrieving recipe');
@@ -156,12 +155,26 @@ class RecipeModel {
                     response.json('Bad Request');
                 }
                 else {
-                    console.log('Found!' );
-                    for(let i=0; i<innerRecipe.reviewList.length; i++)
+                    for(let i=0; i< innerRecipe.reviewList.length; i++)
                     {
-                       rate += innerRecipe.reviewList[i].ra
+                       if(innerRecipe.reviewList[i] == ReviewId)
+                       {
+                         isExisted = true;
+                         break;
+                       }
                     }
-                    response.json('{reviewList:' + innerRecipe.reviewList + '}');
+                    if( isExisted === false)
+                    {
+                        console.log('Found!');
+                        innerRecipe.reviewList.push(ReviewId);
+                        console.log(innerRecipe.reviewList);
+                        innerRecipe.save(function(err){
+                            if(err)
+                            {
+                                response.send(err);
+                            }
+                        });
+                    }
                 }
             }
         });
