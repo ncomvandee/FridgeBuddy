@@ -152,6 +152,11 @@ var App = /** @class */ (function () {
             var id = req.params.userId;
             _this.users.deleteUser(res, { userId: id });
         });
+        // Get user's favorite recipe list
+        router.get('/users/favoriteRecipe/:userId', function (req, res) {
+            var userId = req.params.userId;
+            _this.users.getFavoriteList(res, userId, _this.recipes);
+        });
         // Update user's favorit list by adding a new Recipe
         router.put('/recipe/addTo/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, exist, userId, recipeId;

@@ -2,6 +2,7 @@ import Mongoose = require("mongoose");
 import {DataAccess} from './../DataAccess';
 import { IUsereModel } from "../Interfaces/IUserModel";
 import {IRecipeModel} from '../Interfaces/IRecipeModel';
+import { RecipeModel } from "./RecipeModel";
 
 let mongooseConnection = DataAccess.mongooseConnection;
 let mongooseObj = DataAccess.mongooseInstance;
@@ -159,8 +160,8 @@ class UserModel {
     };
 
 
-    public getFavoriteList(response:any, UserId: Object){
-        var query = this.model.findOne({UserId});
+    public getFavoriteList(response:any, UserId: String, recipeModel: RecipeModel){
+        var query = this.model.findOne({userId: UserId});
 
         query.exec(function (err, innerUser) {
             if (err) {
@@ -173,8 +174,7 @@ class UserModel {
                 }
                 else {
                     console.log('Found!');
-                    response.json(innerUser.favoritList);
-                    // TASK: need to return list of recipe objects, not list of recipeID
+                    recipeModel.passFavoriteList(response, innerUser.favoriteList);
                 }
             }
         });

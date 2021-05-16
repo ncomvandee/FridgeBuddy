@@ -138,8 +138,8 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
-    UserModel.prototype.getFavoriteList = function (response, UserId) {
-        var query = this.model.findOne({ UserId: UserId });
+    UserModel.prototype.getFavoriteList = function (response, UserId, recipeModel) {
+        var query = this.model.findOne({ userId: UserId });
         query.exec(function (err, innerUser) {
             if (err) {
                 console.log('error retrieving user');
@@ -151,8 +151,7 @@ var UserModel = /** @class */ (function () {
                 }
                 else {
                     console.log('Found!');
-                    response.json(innerUser.favoritList);
-                    // TASK: need to return list of recipe objects, not list of recipeID
+                    recipeModel.passFavoriteList(response, innerUser.favoriteList);
                 }
             }
         });

@@ -66,6 +66,21 @@ class RecipeModel {
         });
     };
 
+    // Get User's Favorite Recipe List
+    public async passFavoriteList(response: any, filter: any) {
+        let fillterArr = [];
+        let recipe;
+
+        for (let i = 0; i < filter.length; i++) {
+            recipe = await this.model.findOne({recipeId: filter[i]}, function(err, innerRecipe){
+                return innerRecipe;
+            });
+            fillterArr.push(recipe);
+        }
+        
+        response.json(fillterArr)
+    }
+
     //Get recipe by ingredients
     public retrieveRecibeByIngredients(response: any, filter: any) {
 

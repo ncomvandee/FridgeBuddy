@@ -139,6 +139,13 @@ class App {
             this.users.deleteUser(res, {userId: id});
         })
 
+        // Get user's favorite recipe list
+        router.get('/users/favoriteRecipe/:userId', (req, res) => {
+            let userId = req.params.userId;
+
+            this.users.getFavoriteList(res, userId, this.recipes);
+        })
+
         // Update user's favorit list by adding a new Recipe
         router.put('/recipe/addTo/:userId/:recipeId', async (req, res) => { 
             let id = req.params.recipeId;
