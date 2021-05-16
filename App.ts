@@ -86,6 +86,12 @@ class App {
             this.reviews.retrieveReview(res, {reviewId: id});
         });
 
+        router.put('/reviews/:reviewId', (req, res) => {
+            let id = req.params.reviewID;
+            var receivedJson = req.body;
+            this.reviews.updateReview(res, receivedJson, id);
+        });
+
         // Get all users
         router.get('/users', (req, res) => {
             this.users.retrieveAllUsers(res);
@@ -134,8 +140,8 @@ class App {
             }
         });
 
-         // Update user's favorit list by removing a Recipe
-         router.put('/recipe/removeFrom/:userId/:recipeId', async (req, res) => { 
+        // Update user's favorit list by removing a Recipe
+        router.put('/recipe/removeFrom/:userId/:recipeId', async (req, res) => { 
             let id = req.params.recipeId;
             let exist = false;
             

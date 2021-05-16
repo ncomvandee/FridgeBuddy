@@ -14,7 +14,7 @@ var ReviewModel = /** @class */ (function () {
         this.schema = new Mongoose.Schema({
             reviewId: String,
             comment: String,
-            writer: { userId: String },
+            writer: String,
             date: String,
             rate: Number
         }, { collection: 'reviews' });
@@ -48,6 +48,29 @@ var ReviewModel = /** @class */ (function () {
         });
     };
     ;
+    ReviewModel.prototype.updateReview = function (response, filter, reviewId) {
+        var query = this.model.findOne(reviewId);
+        query.exec(function (err, innerReview) {
+            if (err) {
+                console.log('error retrieving review');
+            }
+            else {
+                if (innerReview == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    innerReview.overwrite(filter);
+                    innerReview.save(function (err) {
+                        if (err) {
+                            response.send(err);
+                        }
+                        response.json("Review #" + innerReview.reviewId + ' was updated.');
+                    });
+                }
+            }
+        });
+    };
     return ReviewModel;
 }());
 exports.ReviewModel = ReviewModel;

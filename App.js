@@ -101,6 +101,11 @@ var App = /** @class */ (function () {
             var id = req.params.reviewId;
             _this.reviews.retrieveReview(res, { reviewId: id });
         });
+        router.put('/reviews/:reviewId', function (req, res) {
+            var id = req.params.reviewID;
+            var receivedJson = req.body;
+            _this.reviews.updateReview(res, receivedJson, id);
+        });
         // Get all users
         router.get('/users', function (req, res) {
             _this.users.retrieveAllUsers(res);
