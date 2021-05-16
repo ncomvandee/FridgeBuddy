@@ -59,6 +59,17 @@ class UserModel {
         });
     };
 
+    // Delete user
+    public deleteUser (response: any, userId: Object) {
+        this.model.findOneAndDelete(userId, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                response.status(200).send('User deleted');
+            }
+        })
+    }
+
     public addToFavoriteList(response:any, UserId: String, RecipeId: String){
         var isExisted : boolean = false;
         var query = this.model.findOne({userId: UserId});

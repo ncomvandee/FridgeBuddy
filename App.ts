@@ -132,6 +132,13 @@ class App {
             });
         });
 
+        // Delete user
+        router.delete('/users/:userId', (req, res) => {
+            let id = req.params.userId;
+
+            this.users.deleteUser(res, {userId: id});
+        })
+
         // Update user's favorit list by adding a new Recipe
         router.put('/recipe/addTo/:userId/:recipeId', async (req, res) => { 
             let id = req.params.recipeId;

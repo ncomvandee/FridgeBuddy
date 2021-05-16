@@ -147,6 +147,11 @@ var App = /** @class */ (function () {
                 }
             });
         });
+        // Delete user
+        router["delete"]('/users/:userId', function (req, res) {
+            var id = req.params.userId;
+            _this.users.deleteUser(res, { userId: id });
+        });
         // Update user's favorit list by adding a new Recipe
         router.put('/recipe/addTo/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, exist, userId, recipeId;

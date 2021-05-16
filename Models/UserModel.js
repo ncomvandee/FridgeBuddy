@@ -51,6 +51,17 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
+    // Delete user
+    UserModel.prototype.deleteUser = function (response, userId) {
+        this.model.findOneAndDelete(userId, function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                response.status(200).send('User deleted');
+            }
+        });
+    };
     UserModel.prototype.addToFavoriteList = function (response, UserId, RecipeId) {
         var isExisted = false;
         var query = this.model.findOne({ userId: UserId });
