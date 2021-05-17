@@ -51,6 +51,30 @@ var UserModel = /** @class */ (function () {
         });
     };
     ;
+    // Update user
+    UserModel.prototype.updateUser = function (response, filter, userId) {
+        var query = this.model.findOne({ userId: userId });
+        query.exec(function (err, innerUser) {
+            if (err) {
+                console.log('error retrieving review');
+            }
+            else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    innerUser.overwrite(filter);
+                    innerUser.save(function (err) {
+                        if (err) {
+                            response.send(err);
+                        }
+                        response.json("Review #" + innerUser.reviewId + ' was updated.');
+                    });
+                }
+            }
+        });
+    };
     // Delete user
     UserModel.prototype.deleteUser = function (response, userId) {
         this.model.findOneAndDelete(userId, function (err) {

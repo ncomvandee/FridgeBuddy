@@ -132,6 +132,13 @@ class App {
             });
         });
 
+        // Update user
+        router.put('/users/:userId', (req, res) => {
+            let id = req.params.userId;
+            var receivedJson = req.body;
+            this.users.updateUser(res, receivedJson, id);
+        });
+
         // Delete user
         router.delete('/users/:userId', (req, res) => {
             let id = req.params.userId;

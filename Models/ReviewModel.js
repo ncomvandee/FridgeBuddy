@@ -49,7 +49,7 @@ var ReviewModel = /** @class */ (function () {
     };
     ;
     ReviewModel.prototype.updateReview = function (response, filter, reviewId) {
-        var query = this.model.findOne(reviewId);
+        var query = this.model.findOne({ reviewId: reviewId });
         query.exec(function (err, innerReview) {
             if (err) {
                 console.log('error retrieving review');

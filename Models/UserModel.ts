@@ -60,6 +60,30 @@ class UserModel {
         });
     };
 
+    // Update user
+    public updateUser(response:any, filter:Object, userId:String) {
+        var query = this.model.findOne({userId});
+        query.exec(function (err, innerUser) {
+            if(err) {
+                console.log('error retrieving review');
+            } else {
+                if (innerUser == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                } else {
+                    innerUser.overwrite(filter);
+                    innerUser.save(function(err){
+                        if(err)
+                        {
+                            response.send(err);
+                        }                  
+                        response.json("Review #" + innerUser.reviewId + ' was updated.')
+                    });
+                }
+            }
+        })
+    }
+
     // Delete user
     public deleteUser (response: any, userId: Object) {
         this.model.findOneAndDelete(userId, (err) => {

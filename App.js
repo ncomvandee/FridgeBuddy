@@ -147,6 +147,12 @@ var App = /** @class */ (function () {
                 }
             });
         });
+        // Update user
+        router.put('/users/:userId', function (req, res) {
+            var id = req.params.userId;
+            var receivedJson = req.body;
+            _this.users.updateUser(res, receivedJson, id);
+        });
         // Delete user
         router["delete"]('/users/:userId', function (req, res) {
             var id = req.params.userId;

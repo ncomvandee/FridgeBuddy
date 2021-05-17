@@ -56,7 +56,7 @@ class ReviewModel {
     };
 
     public updateReview(response:any, filter:Object, reviewId:String) {
-        var query = this.model.findOne(reviewId);
+        var query = this.model.findOne({reviewId});
         query.exec(function (err, innerReview) {
             if(err) {
                 console.log('error retrieving review');
