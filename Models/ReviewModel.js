@@ -136,6 +136,17 @@ var ReviewModel = /** @class */ (function () {
             });
         });
     };
+    // Delete review
+    ReviewModel.prototype.deleteReview = function (response, reviewId) {
+        this.model.findOneAndDelete(reviewId, function (err) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                response.status(200).send('Review deleted');
+            }
+        });
+    };
     return ReviewModel;
 }());
 exports.ReviewModel = ReviewModel;

@@ -112,11 +112,13 @@ var App = /** @class */ (function () {
             var id = req.params.reviewId;
             _this.reviews.retrieveReview(res, { reviewId: id });
         });
+        // Update a review
         router.put('/reviews/:reviewId', function (req, res) {
             var id = req.params.reviewId;
             var receivedJson = req.body;
             _this.reviews.updateReview(res, receivedJson, id);
         });
+        // Create a new review
         router.post('/reviews/:recipeId/:reviewId', function (req, res) {
             var recipeId = req.params.recipeId;
             var receivedJson = req.body;
@@ -135,6 +137,11 @@ var App = /** @class */ (function () {
                     return [2 /*return*/];
                 });
             }); });
+        });
+        // Delete a review
+        router["delete"]('/reviews/:reviewId', function (req, res) {
+            var id = req.params.reviewId;
+            _this.reviews.deleteReview(res, { reviewId: id });
         });
         // Get all users
         router.get('/users', function (req, res) {

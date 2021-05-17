@@ -93,6 +93,17 @@ class ReviewModel {
         response.json(fillterArr)
     }
 
+    // Delete review
+    public deleteReview(response: any, reviewId: Object) {
+        this.model.findOneAndDelete(reviewId, (err) => {
+            if (err) {
+                console.log(err);
+            } else {
+                response.status(200).send('Review deleted');
+            }
+        })
+    }
+
 }
 export {ReviewModel};
 

@@ -101,12 +101,14 @@ class App {
             this.reviews.retrieveReview(res, {reviewId: id});
         });
 
+        // Update a review
         router.put('/reviews/:reviewId', (req, res) => {
             let id = req.params.reviewId;
             var receivedJson = req.body;
             this.reviews.updateReview(res, receivedJson, id);
         });
-
+        
+        // Create a new review
         router.post('/reviews/:recipeId/:reviewId', (req, res) => {
             var recipeId = req.params.recipeId;
             var receivedJson = req.body;
@@ -121,7 +123,13 @@ class App {
                     res.status(200).send('Review added');
                 }
             });
-        })
+        });
+
+        // Delete a review
+        router.delete('/reviews/:reviewId', (req, res) => {
+            let id = req.params.reviewId;
+            this.reviews.deleteReview(res, {reviewId: id});
+        });
 
         // Get all users
         router.get('/users', (req, res) => {
