@@ -81,6 +81,11 @@ var App = /** @class */ (function () {
             var ingredientsArr = req.query.array;
             _this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         });
+        // Get review list of a recipe
+        router.get('/recipe/getReviewList/:recipeId', function (req, res) {
+            var recipeId = req.params.recipeId;
+            _this.recipes.getReviewList(res, recipeId, _this.reviews);
+        });
         // Create new recipe
         router.post('/recipes/', function (req, res) {
             var newRecipe = req.body;

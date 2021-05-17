@@ -78,6 +78,21 @@ class ReviewModel {
         })
     }
 
+    // Get Recipe's Review List
+    public async passReviewList(response: any, filter: any) {
+        let fillterArr = [];
+        let review;
+
+        for (let i = 0; i < filter.length; i++) {
+            review = await this.model.findOne({reviewId: filter[i]}, function(err, innerReview){
+                return innerReview;
+            });
+            fillterArr.push(review);
+        }
+        
+        response.json(fillterArr)
+    }
+
 }
 export {ReviewModel};
 

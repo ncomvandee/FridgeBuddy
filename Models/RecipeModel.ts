@@ -66,6 +66,26 @@ class RecipeModel {
         });
     };
 
+    public getReviewList(response:any, RecipeId: String, reviewModel: ReviewModel){
+        var query = this.model.findOne({recipeId: RecipeId});
+
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    console.log('Found!');
+                    reviewModel.passReviewList(response, innerRecipe.reviewList);
+                }
+            }
+        });
+    };
+
     // Get User's Favorite Recipe List
     public async passFavoriteList(response: any, filter: any) {
         let fillterArr = [];

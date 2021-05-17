@@ -90,6 +90,25 @@ var RecipeModel = /** @class */ (function () {
         });
     };
     ;
+    RecipeModel.prototype.getReviewList = function (response, RecipeId, reviewModel) {
+        var query = this.model.findOne({ recipeId: RecipeId });
+        query.exec(function (err, innerRecipe) {
+            if (err) {
+                console.log('error retrieving user');
+            }
+            else {
+                if (innerRecipe == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    console.log('Found!');
+                    reviewModel.passReviewList(response, innerRecipe.reviewList);
+                }
+            }
+        });
+    };
+    ;
     // Get User's Favorite Recipe List
     RecipeModel.prototype.passFavoriteList = function (response, filter) {
         return __awaiter(this, void 0, void 0, function () {

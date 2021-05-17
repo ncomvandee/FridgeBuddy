@@ -60,6 +60,13 @@ class App {
             this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         })
 
+        // Get review list of a recipe
+        router.get('/recipe/getReviewList/:recipeId', (req, res) => {
+            let recipeId = req.params.recipeId;
+
+            this.recipes.getReviewList(res, recipeId, this.reviews);
+        })
+
         // Create new recipe
         router.post('/recipes/', (req, res) => {
             let newRecipe = req.body;
