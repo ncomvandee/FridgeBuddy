@@ -91,6 +91,12 @@ var App = /** @class */ (function () {
             var newRecipe = req.body;
             _this.recipes.addNewRecipe(res, newRecipe);
         });
+        // Update recipe
+        router.put('/recipes/:id', function (req, res) {
+            var id = req.params.id;
+            var updatedInfo = req.body;
+            _this.recipes.updateRecipe(res, { reipeId: id }, updatedInfo);
+        });
         // Delete recipe
         router["delete"]('/recipes/:recipeId', function (req, res) {
             var id = req.params.recipeId;

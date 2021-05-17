@@ -192,6 +192,30 @@ var RecipeModel = /** @class */ (function () {
             }
         });
     };
+    // Update recipe in db
+    RecipeModel.prototype.updateRecipe = function (response, recipeId, updatedInfo) {
+        var query = this.model.findOne(recipeId);
+        query.exec(function (err, foundRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (foundRecipe == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    foundRecipe.overwrite(updatedInfo);
+                    foundRecipe.save(function (err) {
+                        if (err) {
+                            response.send(err);
+                        }
+                        response.json(foundRecipe.recipeName + ' is updated');
+                    });
+                }
+            }
+        });
+    };
     // Delete recipe
     RecipeModel.prototype.deleteRecipe = function (response, recipeId) {
         this.model.findOneAndDelete(recipeId, function (err) {

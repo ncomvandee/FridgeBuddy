@@ -73,6 +73,14 @@ class App {
             this.recipes.addNewRecipe(res, newRecipe);
         })
 
+        // Update recipe
+        router.put('/recipes/:id', (req, res) => {
+            let id = req.params.id;
+            let updatedInfo = req.body;
+
+            this.recipes.updateRecipe(res, {reipeId: id}, updatedInfo);
+        })
+
         // Delete recipe
         router.delete('/recipes/:recipeId', (req, res) => {
             let id = req.params.recipeId;
