@@ -87,7 +87,8 @@ class ReviewModel {
             review = await this.model.findOne({reviewId: filter[i]}, function(err, innerReview){
                 return innerReview;
             });
-            fillterArr.push(review);
+            if(review != null)
+                fillterArr.push(review);
         }
         
         response.json(fillterArr)

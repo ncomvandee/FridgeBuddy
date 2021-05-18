@@ -124,7 +124,8 @@ var ReviewModel = /** @class */ (function () {
                             })];
                     case 2:
                         review = _a.sent();
-                        fillterArr.push(review);
+                        if (review != null)
+                            fillterArr.push(review);
                         _a.label = 3;
                     case 3:
                         i++;

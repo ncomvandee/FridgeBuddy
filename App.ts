@@ -49,33 +49,33 @@ class App {
         });
 
         // Get only one recipe by id
-        router.get('/recipes/:recipeId', (req, res) => {
+        router.get('/recipes/find/:recipeId', (req, res) => {
             let id = req.params.recipeId;
             this.recipes.retrieveRecipe(res, {recipeId: id});
         });
 
         // Get recipe by ingredients
-        router.get('/recipe', (req, res) => {
+        router.get('/recipes/byIngredients/', (req, res) => {
             let ingredientsArr = req.query.array;
             this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         })
 
         // Get review list of a recipe
-        router.get('/recipe/getReviewList/:recipeId', (req, res) => {
+        router.get('/recipes/getReviewList/:recipeId', (req, res) => {
             let recipeId = req.params.recipeId;
 
             this.recipes.getReviewList(res, recipeId, this.reviews);
         })
 
         // Create new recipe
-        router.post('/recipes/', (req, res) => {
+        router.post('/recipes', (req, res) => {
             let newRecipe = req.body;
             this.recipes.addNewRecipe(res, newRecipe);
         })
 
         // Update recipe
-        router.put('/recipes/:id', (req, res) => {
-            let id = req.params.id;
+        router.put('/recipes/:recipeId', (req, res) => {
+            let id = req.params.recipeId;
             let updatedInfo = req.body;
 
             this.recipes.updateRecipe(res, {reipeId: id}, updatedInfo);
@@ -88,8 +88,9 @@ class App {
             this.recipes.deleteRecipe(res, {recipeId: id});
         })
 
-        /****************************************************************************************/
+        /*******************************************************************************************/
 
+        /**********   REVIEW OPERATION  ************************************************************/
         // Get all reviews
         router.get('/reviews', (req, res) => {
             this.reviews.retrieveAllReviews(res);
@@ -109,10 +110,10 @@ class App {
         });
         
         // Create a new review
-        router.post('/reviews/:recipeId/:reviewId', (req, res) => {
+        router.post('/reviews/:recipeId/', (req, res) => {
             var recipeId = req.params.recipeId;
             var receivedJson = req.body;
-            var reviewId = req.params.reviewId
+            var reviewId = receivedJson.reviewId;
             this.reviews.model.create([receivedJson], async (err) => {
                 if (err) {
                     console.log('object creation failed');
@@ -131,6 +132,11 @@ class App {
             this.reviews.deleteReview(res, {reviewId: id});
         });
 
+        /*******************************************************************************************/
+
+        
+        /**********   users OPERATION  *************************************************************/
+
         // Get all users
         router.get('/users', (req, res) => {
             this.users.retrieveAllUsers(res);
@@ -143,7 +149,7 @@ class App {
         });
 
         // Create a user
-        router.post('/users/', (req, res) => { 
+        router.post('/users', (req, res) => { 
             var receivedJson = req.body;
             this.users.model.create([receivedJson], (err) => {
                 if (err) {
@@ -170,14 +176,14 @@ class App {
         })
 
         // Get user's favorite recipe list
-        router.get('/users/favoriteRecipe/:userId', (req, res) => {
+        router.get('/users/getFavorite/:userId', (req, res) => {
             let userId = req.params.userId;
 
             this.users.getFavoriteList(res, userId, this.recipes);
         })
 
         // Update user's favorit list by adding a new Recipe
-        router.put('/recipe/addTo/:userId/:recipeId', async (req, res) => { 
+        router.put('/users/addFavorite/:userId/:recipeId', async (req, res) => { 
             let id = req.params.recipeId;
             let exist = false;
             
@@ -201,7 +207,7 @@ class App {
         });
 
         // Update user's favorit list by removing a Recipe
-        router.put('/recipe/removeFrom/:userId/:recipeId', async (req, res) => { 
+        router.put('/users/removeFavorite/:userId/:recipeId', async (req, res) => { 
             let id = req.params.recipeId;
             let exist = false;
             
@@ -223,6 +229,8 @@ class App {
                 res.json('Bad Request!');
             }
         });
+
+        /*******************************************************************************************/
 
         this.expressApp.use('/', router);
         

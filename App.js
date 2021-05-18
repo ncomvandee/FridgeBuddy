@@ -72,28 +72,28 @@ var App = /** @class */ (function () {
             _this.recipes.retrieveAllRecipes(res);
         });
         // Get only one recipe by id
-        router.get('/recipes/:recipeId', function (req, res) {
+        router.get('/recipes/find/:recipeId', function (req, res) {
             var id = req.params.recipeId;
             _this.recipes.retrieveRecipe(res, { recipeId: id });
         });
         // Get recipe by ingredients
-        router.get('/recipe', function (req, res) {
+        router.get('/recipes/byIngredients/', function (req, res) {
             var ingredientsArr = req.query.array;
             _this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         });
         // Get review list of a recipe
-        router.get('/recipe/getReviewList/:recipeId', function (req, res) {
+        router.get('/recipes/getReviewList/:recipeId', function (req, res) {
             var recipeId = req.params.recipeId;
             _this.recipes.getReviewList(res, recipeId, _this.reviews);
         });
         // Create new recipe
-        router.post('/recipes/', function (req, res) {
+        router.post('/recipes', function (req, res) {
             var newRecipe = req.body;
             _this.recipes.addNewRecipe(res, newRecipe);
         });
         // Update recipe
-        router.put('/recipes/:id', function (req, res) {
-            var id = req.params.id;
+        router.put('/recipes/:recipeId', function (req, res) {
+            var id = req.params.recipeId;
             var updatedInfo = req.body;
             _this.recipes.updateRecipe(res, { reipeId: id }, updatedInfo);
         });
@@ -102,7 +102,8 @@ var App = /** @class */ (function () {
             var id = req.params.recipeId;
             _this.recipes.deleteRecipe(res, { recipeId: id });
         });
-        /****************************************************************************************/
+        /*******************************************************************************************/
+        /**********   REVIEW OPERATION  ************************************************************/
         // Get all reviews
         router.get('/reviews', function (req, res) {
             _this.reviews.retrieveAllReviews(res);
@@ -119,10 +120,10 @@ var App = /** @class */ (function () {
             _this.reviews.updateReview(res, receivedJson, id);
         });
         // Create a new review
-        router.post('/reviews/:recipeId/:reviewId', function (req, res) {
+        router.post('/reviews/:recipeId/', function (req, res) {
             var recipeId = req.params.recipeId;
             var receivedJson = req.body;
-            var reviewId = req.params.reviewId;
+            var reviewId = receivedJson.reviewId;
             _this.reviews.model.create([receivedJson], function (err) { return __awaiter(_this, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     if (err) {
@@ -143,6 +144,8 @@ var App = /** @class */ (function () {
             var id = req.params.reviewId;
             _this.reviews.deleteReview(res, { reviewId: id });
         });
+        /*******************************************************************************************/
+        /**********   users OPERATION  *************************************************************/
         // Get all users
         router.get('/users', function (req, res) {
             _this.users.retrieveAllUsers(res);
@@ -153,7 +156,7 @@ var App = /** @class */ (function () {
             _this.users.retrieveUser(res, { userId: id });
         });
         // Create a user
-        router.post('/users/', function (req, res) {
+        router.post('/users', function (req, res) {
             var receivedJson = req.body;
             _this.users.model.create([receivedJson], function (err) {
                 if (err) {
@@ -177,12 +180,12 @@ var App = /** @class */ (function () {
             _this.users.deleteUser(res, { userId: id });
         });
         // Get user's favorite recipe list
-        router.get('/users/favoriteRecipe/:userId', function (req, res) {
+        router.get('/users/getFavorite/:userId', function (req, res) {
             var userId = req.params.userId;
             _this.users.getFavoriteList(res, userId, _this.recipes);
         });
         // Update user's favorit list by adding a new Recipe
-        router.put('/recipe/addTo/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.put('/users/addFavorite/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, exist, userId, recipeId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -215,7 +218,7 @@ var App = /** @class */ (function () {
             });
         }); });
         // Update user's favorit list by removing a Recipe
-        router.put('/recipe/removeFrom/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
+        router.put('/users/removeFavorite/:userId/:recipeId', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
             var id, exist, userId, recipeId;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -247,6 +250,7 @@ var App = /** @class */ (function () {
                 }
             });
         }); });
+        /*******************************************************************************************/
         this.expressApp.use('/', router);
         this.expressApp.use('/app/json/', express.static(__dirname + '/app/json'));
         this.expressApp.use(express.static("img"));
