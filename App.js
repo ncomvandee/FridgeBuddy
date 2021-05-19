@@ -81,6 +81,11 @@ var App = /** @class */ (function () {
             var ingredientsArr = req.query.array;
             _this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         });
+        // Get recipe by cuisine
+        router.get('/recipes/byCuisine/:cuisine', function (req, res) {
+            var cuisine = req.params.cuisine;
+            _this.recipes.getRecipeByCuisine(res, cuisine);
+        });
         // Get review list of a recipe
         router.get('/recipes/getReviewList/:recipeId', function (req, res) {
             var recipeId = req.params.recipeId;

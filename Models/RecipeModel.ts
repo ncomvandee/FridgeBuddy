@@ -151,6 +151,27 @@ class RecipeModel {
         })
     }
 
+    // Get recipe by cuisine
+    public getRecipeByCuisine(response: any, cuisine: string) {
+        let query = this.model.findOne({recipeName: new RegExp(cuisine, 'i')});
+
+        query.exec(function (err, foundRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (foundRecipe == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    console.log('Found!');
+                    response.json(foundRecipe);
+                }
+            }
+        });
+    }
+
     // Add new recipe in db
     public addNewRecipe(response: any, newRecipe: Object) {
         this.model.create([newRecipe], (err) => {

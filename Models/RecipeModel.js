@@ -180,6 +180,25 @@ var RecipeModel = /** @class */ (function () {
             }
         });
     };
+    // Get recipe by cuisine
+    RecipeModel.prototype.getRecipeByCuisine = function (response, cuisine) {
+        var query = this.model.findOne({ recipeName: new RegExp(cuisine, 'i') });
+        query.exec(function (err, foundRecipe) {
+            if (err) {
+                console.log('error retrieving recipe');
+            }
+            else {
+                if (foundRecipe == null) {
+                    response.status(404);
+                    response.json('Bad Request');
+                }
+                else {
+                    console.log('Found!');
+                    response.json(foundRecipe);
+                }
+            }
+        });
+    };
     // Add new recipe in db
     RecipeModel.prototype.addNewRecipe = function (response, newRecipe) {
         this.model.create([newRecipe], function (err) {

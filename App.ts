@@ -60,6 +60,13 @@ class App {
             this.recipes.retrieveRecibeByIngredients(res, ingredientsArr);
         })
 
+        // Get recipe by cuisine
+        router.get('/recipes/byCuisine/:cuisine', (req, res) => {
+            let cuisine = req.params.cuisine;
+
+            this.recipes.getRecipeByCuisine(res, cuisine);
+        })
+
         // Get review list of a recipe
         router.get('/recipes/getReviewList/:recipeId', (req, res) => {
             let recipeId = req.params.recipeId;
