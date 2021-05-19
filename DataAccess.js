@@ -3,7 +3,6 @@ exports.__esModule = true;
 exports.DataAccess = void 0;
 var Mongoose = require("mongoose");
 var DataAccess = /** @class */ (function () {
-    //static DB_CONNECTION_STRING:string = 'mongodb+srv://FridgeBuddy:ilovesaasclass@fridgebuddy.fych5.mongodb.net/fridge?retryWrites=true&w=majority'
     function DataAccess() {
         DataAccess.connect();
     }
@@ -17,7 +16,8 @@ var DataAccess = /** @class */ (function () {
         this.mongooseInstance = Mongoose.connect(this.DB_CONNECTION_STRING);
         return this.mongooseInstance;
     };
-    DataAccess.DB_CONNECTION_STRING = 'mongodb://dbAdmin:test@localhost:27017/fridge?authSource=admin';
+    //static DB_CONNECTION_STRING:string = 'mongodb://dbAdmin:test@localhost:27017/fridge?authSource=admin';
+    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://FridgeBuddy:ilovesaasclass@fridgebuddy.fych5.mongodb.net/fridge?retryWrites=true&w=majority';
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;
