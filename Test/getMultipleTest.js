@@ -9,7 +9,7 @@ var should = chai.should();
 var http = require('http');
 chai.use(chaiHttp);
 
-describe('Test Recipes result', function () {
+describe('Test Get All Recipes result', function () {
 	var requestResult;
 	var response;
 		 
@@ -25,7 +25,7 @@ describe('Test Recipes result', function () {
 			});
         });
     
-    it('Should return an array object with more than 1 object', function (){
+    it('Should return an array object with more than 1 recipe object', function (){
 		expect(response).to.have.status(200);
 		expect(response.body).to.have.length.above(2);
 		expect(response).to.have.headers;
