@@ -23,6 +23,7 @@ class RecipeModel {
         this.schema = new Mongoose.Schema({
             recipeId: String,
             recipeName: String,
+            recipeImage: String,
             description: String,
             instruction: [],
             ingredientList: [],
@@ -108,6 +109,10 @@ class RecipeModel {
         let fillterArr = [];
         let size;
         let checkMock = "String";
+
+        if (filter === null || filter.length == 0) {
+            response.json(fillterArr);
+        }
 
         // If the filter contain only one argument. it treats as string and cannot use loop
         if (typeof filter === typeof checkMock) {
