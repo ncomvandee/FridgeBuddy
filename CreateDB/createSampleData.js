@@ -51,7 +51,7 @@ recipesCollection.insert(
 	reviewList: ["1", "2"],
 	recipeImage: "https://media.eggs.ca/assets/RecipePhotos/_resampled/FillWyIxMjgwIiwiNzIwIl0/Simple-Scrambled-Eggs.jpg",
 	videoLink: "https://www.youtube.com/watch?v=PUP7U5vTMM0",
-	avgRage: 4.7,
+	avgRate: 4,
 	viewers: 57
 }
 )
@@ -65,7 +65,7 @@ recipesCollection.insert(
 	reviewList: ["3"],
 	recipeImage: "https://static01.nyt.com/images/2021/01/15/dining/15COOKING-OLD-BEEF-STEW2/15COOKING-OLD-BEEF-STEW2-articleLarge-v2.jpg",
 	videoLink: "https://www.youtube.com/watch?v=gg8qQTrb9lk",
-	avgRage: 3,
+	avgRate: 3,
 	viewers: 102
 }
 )
@@ -79,7 +79,7 @@ recipesCollection.insert(
 	reviewList: [],
 	recipeImage: "https://cafedelites.com/wp-content/uploads/2018/03/Sheet-Pan-Baked-Salmon-Potatoes-Asparagus-3.jpg",
 	videoLink: "https://www.youtube.com/watch?v=FQQpIUaSqY0",
-	avgRage: 5.0,
+	avgRate: 5.0,
 	viewers: 1
 }
 )
