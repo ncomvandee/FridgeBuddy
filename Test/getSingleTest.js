@@ -41,7 +41,7 @@ describe('Test Get Single Recipe result', function () {
         expect(requestResult).to.have.property('description');
         expect(requestResult).to.have.property('recipeImage');
         expect(requestResult).to.have.property('videoLink');
-        expect(requestResult).to.have.property('avgRage');
+        expect(requestResult).to.have.property('avgRate');
         expect(requestResult).to.have.property('viewers');
 
         // Recipe contains expected attribute types
@@ -53,7 +53,7 @@ describe('Test Get Single Recipe result', function () {
         expect(requestResult).to.have.property('description').that.is.a('string');
         expect(requestResult).to.have.property('recipeImage').that.is.a('string');
         expect(requestResult).to.have.property('videoLink').that.is.a('string');
-        expect(requestResult).to.have.property('avgRage').that.is.a('number');
+        expect(requestResult).to.have.property('avgRate').that.is.a('number');
         expect(requestResult).to.have.property('viewers').that.is.a('number');
 
         // Recipe contains an id

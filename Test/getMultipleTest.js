@@ -52,7 +52,7 @@ describe('Test Get All Recipes result', function () {
 					expect(body[i]).to.have.property('description');
                     expect(body[i]).to.have.property('recipeImage');
                     expect(body[i]).to.have.property('videoLink');
-					expect(body[i]).to.have.property('avgRage');
+					expect(body[i]).to.have.property('avgRate');
                     expect(body[i]).to.have.property('viewers');
 
                     // List items contain expected attribute types
@@ -64,7 +64,7 @@ describe('Test Get All Recipes result', function () {
 					expect(body[i]).to.have.property('description').that.is.a('string');
                     expect(body[i]).to.have.property('recipeImage').that.is.a('string');
                     expect(body[i]).to.have.property('videoLink').that.is.a('string');
-					expect(body[i]).to.have.property('avgRage').that.is.a('number');
+					expect(body[i]).to.have.property('avgRate').that.is.a('number');
                     expect(body[i]).to.have.property('viewers').that.is.a('number');
 
                     // Each list item contains an id
