@@ -38,6 +38,26 @@ usersCollection.insert(
 	recentlyView: []
 }
 )
+
+db.createCollection('ingredients')
+ingredientsCollection = db.getCollection('ingredients')
+ingredientsCollection.remove({})
+ingredientsCollection.insert({
+	ingredientName: ['Apple', 'Asparagus', 'Appricot',
+					 'Beef', 'Broccolli', 'Begel', 'Banana', 'Bread crum', 'Beet root',
+					'Carrot', 'Cat fish', 'Coconut', 'Coco powder', 'Chicken breast',
+					'Donut',
+					'Egg', 'Eggplant', 'Elephant',
+					'Fish', 'Frig',
+					'Goat Milk',
+					'Potato',
+					'Shrimp',
+					'Water' ]
+})
+
+
+
+
 db.createCollection('recipes')
 recipesCollection = db.getCollection("recipes")
 recipesCollection.remove({})
