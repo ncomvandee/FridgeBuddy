@@ -38,7 +38,18 @@ usersCollection.insert(
 	recentlyView: []
 }
 )
-
+usersCollection.insert(
+	{
+		userId: "Sam",
+		password: "123",
+		email: "sborhan@seattleu.edu",
+		firstName: "Sam",
+		lastName: "Borhan",
+		isPremium: false,
+		favoriteList: [],
+		recentlyView: []
+	}
+	)
 db.createCollection('ingredients')
 ingredientsCollection = db.getCollection('ingredients')
 ingredientsCollection.remove({})
@@ -54,10 +65,6 @@ ingredientsCollection.insert({
 					'Shrimp',
 					'Water' ]
 })
-
-
-
-
 db.createCollection('recipes')
 recipesCollection = db.getCollection("recipes")
 recipesCollection.remove({})
