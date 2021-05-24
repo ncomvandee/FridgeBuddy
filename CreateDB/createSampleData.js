@@ -79,7 +79,7 @@ recipesCollection.insert(
 	reviewList: [],
 	recipeImage: "https://cafedelites.com/wp-content/uploads/2018/03/Sheet-Pan-Baked-Salmon-Potatoes-Asparagus-3.jpg",
 	videoLink: "FQQpIUaSqY0",
-	avgRate: 5.0,
+	avgRate: 5,
 	viewers: 1
 }
 )
@@ -93,7 +93,7 @@ recipesCollection.insert(
 	reviewList: ["11", "12", "13", "14"],
 	recipeImage: "https://www.feastingathome.com/wp-content/uploads/2016/04/easy-authentic-pad-thai-recipe-100.jpg",
 	videoLink: "dBSmCwUXZF0",
-	avgRate: 5.0,
+	avgRate: 5,
 	viewers: 27
 }
 )
@@ -107,7 +107,7 @@ recipesCollection.insert(
 	reviewList: ["15", "16", "17"],
 	recipeImage: "https://mykoreankitchen.com/wp-content/uploads/2013/07/2-Korean-mixed-riceBibimbap.jpg",
 	videoLink: "6QQ67F8y2b8",
-	avgRate: 5.0,
+	avgRate: 5,
 	viewers: 15
 }
 )
@@ -121,7 +121,7 @@ recipesCollection.insert(
 	reviewList: ["18"],
 	recipeImage: "https://www.inspiredtaste.net/wp-content/uploads/2019/03/Spaghetti-with-Meat-Sauce-Recipe-3-1200.jpg",
 	videoLink: "ErEy38dcCVg",
-	avgRate: 5.0,
+	avgRate: 5,
 	viewers: 15
 }
 )
@@ -135,7 +135,7 @@ recipesCollection.insert(
 	reviewList: ["19", "20"],
 	recipeImage: "https://mykoreankitchen.com/wp-content/uploads/2007/02/1.-How-to-make-Korean-instant-cup-noodles-500x375.jpg",
 	videoLink: "bz0eKxeUH4g",
-	avgRate: 3.5,
+	avgRate: 3,
 	viewers: 120
 }
 )
@@ -149,7 +149,7 @@ recipesCollection.insert(
 	reviewList: [],
 	recipeImage: "https://image.shutterstock.com/image-photo/sandwich-ham-cheese-tomatoes-lettuce-260nw-1027873330.jpg",
 	videoLink: "b8d0gpsXzEk",
-	avgRate: 3.5,
+	avgRate: 3,
 	viewers: 44
 }
 )
@@ -163,7 +163,7 @@ recipesCollection.insert(
 	reviewList: ["21", "22"],
 	recipeImage: "https://images-gmi-pmc.edge-generalmills.com/df109202-f5dd-45a1-99b4-f10939afd509.jpg",
 	videoLink: "FLd00Bx4tOk",
-	avgRate: 4.7,
+	avgRate: 4,
 	viewers: 135
 }
 )
@@ -205,7 +205,7 @@ recipesCollection.insert(
 	reviewList: ["24", "25"],
 	recipeImage: "https://www.thewholesomedish.com/wp-content/uploads/2019/04/The-Best-Classic-Hamburgers-2.jpg",
 	videoLink: "L6yX6Oxy_J8",
-	avgRate: 4.1,
+	avgRate: 4,
 	viewers: 220
 }
 )
