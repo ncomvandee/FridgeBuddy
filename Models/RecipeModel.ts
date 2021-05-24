@@ -177,6 +177,44 @@ class RecipeModel {
         });
     }
 
+    // Get top ten recipe by views
+    public getTopTenRecipeByViews(response: any) {
+        let query = this.model.find().sort({viewers: -1}).limit(10);
+
+        query.exec(function (err, topTenRecipe) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (topTenRecipe == null || topTenRecipe.length == 0) {
+                    response.status(404).send('Bad Request');
+                }
+                else {
+                    response.json(topTenRecipe);
+                }
+            }
+        })
+    }
+
+    // Get top ten recipes by rating
+    public getTopTenRecipesByRating(response: any) {
+        let query = this.model.find().sort({avgRate: -1}).limit(10);
+
+        query.exec(function (err, topTenRecipe) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                if (topTenRecipe == null || topTenRecipe.length == 0) {
+                    response.status(404).send('Bad Request');
+                }
+                else {
+                    response.json(topTenRecipe);
+                }
+            }
+        })
+    }
+
     // Add new recipe in db
     public addNewRecipe(response: any, newRecipe: Object) {
         this.model.create([newRecipe], (err) => {

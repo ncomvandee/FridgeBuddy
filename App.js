@@ -86,6 +86,14 @@ var App = /** @class */ (function () {
             var cuisine = req.params.cuisine;
             _this.recipes.getRecipeByCuisine(res, cuisine);
         });
+        // Get top ten recipe by views
+        router.get('/recipes/topTenByViews/', function (req, res) {
+            _this.recipes.getTopTenRecipeByViews(res);
+        });
+        // Get top ten recipes by rating
+        router.get('/recipes/topTenByRating/', function (req, res) {
+            _this.recipes.getTopTenRecipesByRating(res);
+        });
         // Get review list of a recipe
         router.get('/recipes/getReviewList/:recipeId', function (req, res) {
             var recipeId = req.params.recipeId;

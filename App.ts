@@ -67,6 +67,16 @@ class App {
             this.recipes.getRecipeByCuisine(res, cuisine);
         })
 
+        // Get top ten recipe by views
+        router.get('/recipes/topTenByViews/', (req, res) => {
+            this.recipes.getTopTenRecipeByViews(res);
+        })
+
+        // Get top ten recipes by rating
+        router.get('/recipes/topTenByRating/', (req, res) => {
+            this.recipes.getTopTenRecipesByRating(res);
+        })
+
         // Get review list of a recipe
         router.get('/recipes/getReviewList/:recipeId', (req, res) => {
             let recipeId = req.params.recipeId;
