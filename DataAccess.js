@@ -17,7 +17,7 @@ var DataAccess = /** @class */ (function () {
         return this.mongooseInstance;
     };
     //static DB_CONNECTION_STRING:string = 'mongodb://dbAdmin:test@localhost:27017/fridge?authSource=admin';
-    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://FridgeBuddy:ilovesaasclass@fridgebuddy.fych5.mongodb.net/fridge?retryWrites=true&w=majority';
+    DataAccess.DB_CONNECTION_STRING = 'mongodb+srv://FridgeBuddy:fridge@fridgebuddy.fych5.mongodb.net/fridgeInAzure?retryWrites=true&w=majority';
     return DataAccess;
 }());
 exports.DataAccess = DataAccess;
